@@ -1,0 +1,157 @@
+@startuml
+
+class Movie {
+  - id: Integer
+  - title: String
+  - director: String
+  - year: int
+  - duration: int
+  - location: String
+  - synopsis: String
+  - exhibition: Exhibition
+  - noReviews: int
+  - totalRating: int
+
+  + Movie(title: String, director: String, year: int, duration: int, location: String, synopsis: String, exhibition: Exhibition, noReviews: int = 0)
+  + getId(): Integer
+  + setLocation(location: String): void
+  + setSynopsis(synopsis: String): void
+  + getTitle(): String
+  + getDirector(): String
+  + getYear(): int
+  + getDuration(): int
+  + getLocation(): String
+  + getSynopsis(): String
+  + getNoReviews(): int
+  + reviewMade(): void
+  + setNoReview(noReview: int): void
+  + averageRating(noReviews: int, totalRating: int): int
+}
+
+class Session {
+  - id: Integer
+  - movie: Movie
+  - theater: Theater
+  - date: DATETIME
+
+  + Session(id: Integer, movie: Movie, theater: Theater, date: DATETIME)
+  + getId(): Integer
+  + getMovie(): Movie
+  + getTheater(): Theater
+  + getDate(): DATETIME
+  + setTheater(theater: Theater): void
+  + setDate(date: DATETIME): void
+}
+
+class Exhibition {
+  - id: Integer
+  - title: String
+  - startDate: DATE
+  - endDate: DATE
+  - status: Status
+
+  + Exhibition(id: Integer, title: String, startDate: DATE, endDate: DATE, status: Status)
+  + getId(): Integer
+  + getTitle(): String
+  + getStartDate(): DATE
+  + getEndDate(): DATE
+  + getStatus(): Status
+  + getMovie(): Movie
+  + setTitle(title: String): void
+  + setStatus(status: Status): void
+}
+
+class User {
+  - id: Integer
+  - name: String
+  - password: String
+  - email: String
+  - role: UserRole
+
+  + User(id: Integer, name: String, password: String, email: String, role: UserRole)
+  + getId(): Integer
+  + getName(): String
+  + getPassword(): String
+  + getEmail(): String
+  + getRole(): UserRole
+  + setName(name: String): void
+  + setPassword(password: String): void
+  + setEmail(email: String): void
+  + setRole(role: UserRole): void
+  + createReview(movie: Movie, title: String, comment: String, rating: int, date: Date): Review
+}
+
+class Review {
+  - id: Integer
+  - title: String
+  - comment: String
+  - rating: int
+  - user: User
+  - movie: Movie
+  - date: DATE
+
+  + Review(id: Integer, title: String, comment: String, rating: int, user: User, movie: Movie, date: DATE)
+  + getId(): Integer
+  + getTitle(): String
+  + getComment(): String
+  + getRating(): int
+  + getUser(): User
+  + getMovie(): Movie
+  + getDate(): DATE
+  + setTitle(title: String): void
+  + setComment(comment: String): void
+  + setRating(rating: int): void
+  + setUser(user: User): void
+  + setMovie(movie: Movie): void
+  + setDate(date: DATE): void
+}
+
+class AuthService {
+  + login(email: String, password: String): SessionLogin
+  + logout(session: SessionLogin): void
+  + register(name: String, email: String, password: String): User
+  + validateSession(token: String): boolean
+}
+
+class SessionLogin {
+  - token: String
+  - user: User
+  - loginTime: DATETIME
+  - lastActivity: DATETIME
+
+  + getUser(): User
+  + getToken(): String
+  + isExpired(): boolean
+}
+
+enum Status {
+  ONGOING
+  ENDED
+}
+
+enum Theater {
+  CINUSP_Favo04
+  CINUSP_MariaAntonia
+  CINUSP_NovaSala
+}
+
+enum UserRole {
+  ADMIN
+  REGULAR
+}
+
+' Associações
+Movie "1" -- "0..*" Session : has
+Movie "1" -- "0..*" Review : receives
+Exhibition "1" -- "0..*" Movie : includes
+User "1" -- "0..*" Review : writes
+
+Exhibition --> Status : status
+Session --> Theater : theater
+User --> UserRole : role
+
+AuthService --> User : manages
+AuthService --> SessionLogin : creates
+SessionLogin --> User : belongs to
+
+@enduml
