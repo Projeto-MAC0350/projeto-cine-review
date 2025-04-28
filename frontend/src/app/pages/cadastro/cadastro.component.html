@@ -13,8 +13,13 @@
 
   <section class="login-section">
     <div class="login-container">
-      <h1>Entre</h1>
+      <h1>Cadastro</h1>
       <form>
+        <div class="form-group">
+          <label for="name">Nome:</label>
+          <input type="text" id="name" placeholder="Digite seu nome" required>
+        </div>
+
         <div class="form-group">
           <label for="email">E-mail:</label>
           <input type="email" id="email" placeholder="Digite seu e-mail" required>
@@ -25,12 +30,17 @@
           <input type="password" id="password" placeholder="Digite sua senha" required>
         </div>
 
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar Senha:</label>
+          <input type="password" id="confirmPassword" placeholder="Confirme sua senha" required>
+        </div>
+
         <div class="buttons">
-          <button type="submit">Entrar</button>
+          <button type="submit">Cadastrar</button>
         </div>
 
         <div class="register-link">
-          <a routerLink="/cadastro">Ainda não sou usuário (clique para cadastrar-se)</a>
+          <a routerLink="/login">Já sou usuário (voltar para login)</a>
         </div>
       </form>
     </div>
