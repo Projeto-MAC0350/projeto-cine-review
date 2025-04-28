@@ -1,0 +1,384 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+  :host {
+    --bright-blue: oklch(51.01% 0.274 263.83);
+    --electric-violet: oklch(53.18% 0.28 296.97);
+    --french-violet: oklch(47.66% 0.246 305.88);
+    --vivid-pink: oklch(69.02% 0.277 332.77);
+    --hot-red: oklch(61.42% 0.238 15.34);
+    --orange-red: oklch(63.32% 0.24 31.68);
+
+    --gray-900: oklch(19.37% 0.006 300.98);
+    --gray-700: oklch(36.98% 0.014 302.71);
+    --gray-400: oklch(70.9% 0.015 304.04);
+
+    --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+      180deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+      90deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --pill-accent: var(--bright-blue);
+
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 3.125rem;
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  }
+
+  p {
+    margin: 0;
+    color: var(--gray-700);
+  }
+
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+
+  .angular-logo {
+    max-width: 9.2rem;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+
+  .content h1 {
+    margin-top: 1.75rem;
+  }
+
+  .content p {
+    margin-top: 1.5rem;
+  }
+
+  .divider {
+    width: 1px;
+    background: var(--red-to-pink-to-purple-vertical-gradient);
+    margin-inline: 0.5rem;
+  }
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    --pill-accent: var(--bright-blue);
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    color: var(--pill-accent);
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border-radius: 2.75rem;
+    border: 0;
+    transition: background 0.3s ease;
+    font-family: var(--inter-font);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: -0.00875rem;
+    text-decoration: none;
+  }
+
+  .pill:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+  }
+
+  .pill-group .pill:nth-child(6n + 1) {
+    --pill-accent: var(--bright-blue);
+  }
+  .pill-group .pill:nth-child(6n + 2) {
+    --pill-accent: var(--french-violet);
+  }
+  .pill-group .pill:nth-child(6n + 3),
+  .pill-group .pill:nth-child(6n + 4),
+  .pill-group .pill:nth-child(6n + 5) {
+    --pill-accent: var(--hot-red);
+  }
+
+  .pill-group svg {
+    margin-inline-start: 0.25rem;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.73rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-links path {
+    transition: fill 0.3s ease;
+    fill: var(--gray-400);
+  }
+
+  .social-links a:hover svg path {
+    fill: var(--gray-900);
+  }
+
+  @media screen and (max-width: 650px) {
+    .content {
+      flex-direction: column;
+      width: max-content;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--red-to-pink-to-purple-horizontal-gradient);
+      margin-block: 1.5rem;
+    }
+  }
+</style>
+
+<main class="main">
+  <header class="header">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="assets/logo2.jpg" alt="LOGO">
+      </a>
+    </div>
+    <nav class="nav-links">
+      <a routerLink="/login">Entre ou Cadastre-se</a>
+      <a routerLink="/filmes">Filmes</a>
+      <a href="https://cinusp.webhostusp.sti.usp.br/" target="_blank" rel="noopener">Sobre o CINUSP</a>
+    </nav>
+  </header>
+
+  <section class="frase">
+    <div class="frase-conteudo">
+      <h1>Agora você pode dizer o que viu e como se sentiu ao sair do CINUSP</h1>
+    </div>
+  </section>
+
+  <section class="agenda-section">
+    <h2>Agenda da Semana</h2>
+    <div class="agenda-navigation">
+      <button>&lt; Semana Anterior</button>
+      <button>Próxima Semana &gt;</button>
+    </div>
+    <div class="agenda-grid">
+
+      <div class="day">
+        <h3>Segunda</h3>
+        <div class="filme">
+          <h4>India Song</h4>
+          <img src="assets/poster-filme1-segunda.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Viagem à Itália</h4>
+          <img src="assets/poster-filme2-segunda.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 19h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <h3>Terça</h3>
+        <div class="filme">
+          <h4>Ninotchka</h4>
+          <img src="assets/poster-filme1-terca.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Apocalipse Now</h4>
+          <img src="assets/poster-filme2-terca.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 19h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <h3>Quarta</h3>
+        <div class="filme">
+          <h4>O Abraço da Serpente</h4>
+          <img src="assets/poster-filme1-quarta.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Notícias de Casa</h4>
+          <img src="assets/poster-filme2-quarta.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 19h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <h3>Quinta</h3>
+        <div class="filme">
+          <h4>Título do Filme 1</h4>
+          <img src="assets/poster-filme1-quinta.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Título do Filme 2</h4>
+          <img src="assets/poster-filme2-quinta.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 19h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <h3>Sexta</h3>
+        <div class="filme">
+          <h4>Título do Filme 1</h4>
+          <img src="assets/poster-filme1-sexta.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Título do Filme 2</h4>
+          <img src="assets/poster-filme2-sexta.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 19h</p>
+            <p>Local: CINUSP Nova Sala</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <h3>Sábado</h3>
+        <div class="filme">
+          <h4>Título do Filme 1</h4>
+          <img src="assets/poster-filme1-sabado.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Maria Antônia</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Título do Filme 2</h4>
+          <img src="assets/poster-filme2-sabado.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 18h</p>
+            <p>Local: CINUSP Maria Antônia</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <h3>Domingo</h3>
+        <div class="filme">
+          <h4>Título do Filme 1</h4>
+          <img src="assets/poster-filme1-domingo.jpg" alt="Filme 1">
+          <div class="filme-info">
+            <p>Horário: 16h</p>
+            <p>Local: CINUSP Maria Antônia</p>
+          </div>
+        </div>
+
+        <div class="filme">
+          <h4>Título do Filme 2</h4>
+          <img src="assets/poster-filme2-domingo.jpg" alt="Filme 2">
+          <div class="filme-info">
+            <p>Horário: 18h</p>
+            <p>Local: CINUSP Maria Antônia</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="reviews-section">
+    <h2>Últimas Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <h3>Filme Exemplo</h3>
+        <p>Resumo da crítica...</p>
+        <button>Leia Mais</button>
+      </div>
+      <!-- Mais reviews -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
+  </footer>
+
+</main>
+<router-outlet></router-outlet>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

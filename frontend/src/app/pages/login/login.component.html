@@ -1,0 +1,41 @@
+<main class="main">
+  <header class="header">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="assets/logo2.jpg" alt="LOGO">
+      </a>
+    </div>
+    <nav class="nav-links">
+      <a routerLink="/filmes">Filmes</a>
+      <a href="https://cinusp.webhostusp.sti.usp.br/" target="_blank" rel="noopener">Sobre o CINUSP</a>
+    </nav>
+  </header>
+
+  <section class="login-section">
+    <div class="login-container">
+      <h1>Entre ou Cadastre-se</h1>
+      <form>
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" placeholder="Digite seu e-mail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input type="password" id="password" placeholder="Digite sua senha" required>
+        </div>
+
+        <div class="buttons">
+          <button type="submit">Entrar</button>
+          <button type="button">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
+  </footer>
+</main>
+
+<router-outlet></router-outlet>
