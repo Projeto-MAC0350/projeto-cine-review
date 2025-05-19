@@ -1,0 +1,90 @@
+// O DER pode ser encontrado e visualizado em: https://dbdiagram.io/d/rev-usp-682a9d191227bdcb4ee205ee
+
+// Enums
+Enum STATUS {
+  ONGOING
+  ENDED
+}
+
+Enum THEATER {
+  CINUSP_Favo04
+  CINUSP_MariaAntonia
+  CINUSP_NovaSala
+}
+
+Enum USER_ROLE {
+  ADMIN
+  REGULAR
+}
+
+// Tabelas
+
+Table users {
+  id int [pk, increment]
+  name varchar(100)
+  password varchar(100)
+  email varchar(100) [unique]
+  role USER_ROLE
+}
+
+Table exhibitions {
+  id int [pk, increment]
+  title varchar(200)
+  start_date date
+  end_date date
+  status STATUS
+}
+
+Table movies {
+  id int [pk, increment]
+  title varchar(200)
+  director varchar(100) //nullable
+  year int
+  duration int
+  location varchar(100) //nullable
+  synopsis text //nullable
+  exhibition_id int
+  no_reviews int [default: 0]
+  total_rating int [default: 0]
+}
+
+Table sessions {
+  id int [pk, increment]
+  movie_id int
+  theater THEATER
+  date datetime
+}
+
+Table reviews {
+  id int [pk, increment]
+  title varchar(200) //nullable
+  comment text //nullable
+  rating int 
+  user_id int
+  movie_id int
+  date datetime
+}
+
+Table session_logins {
+  token varchar(255) [pk]
+  user_id int
+  login_time datetime
+  last_activity datetime //nullable
+}
+
+// Relações com cardinalidade comentada
+
+// 1 exhibition includes many movies
+Ref: exhibitions.id < movies.exhibition_id
+
+// 1 movie has many sessions
+Ref: movies.id < sessions.movie_id
+
+// 1 user writes many reviews
+Ref: users.id < reviews.user_id
+
+// 1 movie receives many reviews
+Ref: movies.id < reviews.movie_id
+
+// 1 user has many session logins
+Ref: users.id < session_logins.user_id
