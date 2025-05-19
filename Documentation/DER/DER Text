@@ -1,3 +1,5 @@
+// O DER pode ser encontrado e visualizado em: https://dbdiagram.io/d/rev-usp-682a9d191227bdcb4ee205ee
+
 // Enums
 Enum STATUS {
   ONGOING
@@ -36,11 +38,11 @@ Table exhibitions {
 Table movies {
   id int [pk, increment]
   title varchar(200)
-  director varchar(100)
+  director varchar(100) //nullable
   year int
   duration int
-  location varchar(100)
-  synopsis text
+  location varchar(100) //nullable
+  synopsis text //nullable
   exhibition_id int
   no_reviews int [default: 0]
   total_rating int [default: 0]
@@ -55,19 +57,19 @@ Table sessions {
 
 Table reviews {
   id int [pk, increment]
-  title varchar(200)
-  comment text
-  rating int
+  title varchar(200) //nullable
+  comment text //nullable
+  rating int 
   user_id int
   movie_id int
-  date date
+  date datetime
 }
 
 Table session_logins {
   token varchar(255) [pk]
   user_id int
   login_time datetime
-  last_activity datetime
+  last_activity datetime //nullable
 }
 
 // Relações com cardinalidade comentada
