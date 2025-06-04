@@ -46,6 +46,7 @@ Table movies {
   exhibition_id int
   no_reviews int [default: 0]
   total_rating int [default: 0]
+  movie_link varchar
 }
 
 Table sessions {
