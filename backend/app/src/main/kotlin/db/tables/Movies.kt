@@ -14,6 +14,7 @@ object Movies : Table("movies") {
     val exhibition_id = integer("exhibition_id").references(Exhibitions.id)
     val no_reviews = integer("no_reviews").default(0)
     val total_rating = integer("total_rating").default(0)
+    val movie_link = varchar("movie_link", 200).nullable()
     
     override val primaryKey = PrimaryKey(id)
 }
