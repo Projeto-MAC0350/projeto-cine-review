@@ -1,5 +1,6 @@
 package db.dbo
-import db.tables.Sessions_Logins
+
+import db.tables.SessionsLogins
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDateTime
 
@@ -12,9 +13,9 @@ data class SessionsLoginDbo(
 
 fun ResultRow.toSessionsLoginDbo(): SessionsLoginDbo {
     return SessionsLoginDbo(
-        id = this[Sessions_Logins.id],
-        userId = this[Sessions_Logins.user_id],
-        loginTime = this[Sessions_Logins.login_time].toLocalDateTime(),
-        logoutTime = this[Sessions_Logins.logout_time]?.toLocalDateTime()
+        id = this[SessionsLogins.id],
+        userId = this[SessionsLogins.user_id],
+        loginTime = this[SessionsLogins.login_time].toLocalDateTime(),
+        logoutTime = this[SessionsLogins.logout_time]?.toLocalDateTime()
     )
 }
