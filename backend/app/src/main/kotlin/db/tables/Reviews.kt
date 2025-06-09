@@ -11,7 +11,7 @@ object Reviews : Table("reviews") {
     val comment = text("comment").nullable()
     val rating = integer("rating")
     val title = varchar("title", 255).nullable()
-    val date = datetime("date").defaultExpression(CurrentDateTime())
+    val date = date("date").defaultExpression(CurrentDate())
 
     override val primaryKey = PrimaryKey(id)
 }
