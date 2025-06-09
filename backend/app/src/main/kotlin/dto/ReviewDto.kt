@@ -23,7 +23,7 @@ data class ReviewDto(
                 comment = dbo.comment,
                 rating = dbo.rating,
                 title = dbo.title,
-                date = dbo.date.toLocalDate()
+                date = dbo.date
             )
         }
 
@@ -35,7 +35,7 @@ data class ReviewDto(
                 comment = dto.comment,
                 rating = dto.rating,
                 title = dto.title,
-                date = java.sql.Date.valueOf(dto.date)
+                date = dto.date
             )
         }
     }

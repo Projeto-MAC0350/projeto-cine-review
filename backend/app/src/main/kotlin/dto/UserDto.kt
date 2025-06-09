@@ -5,7 +5,7 @@ import db.enums.USER_ROLE
 
 data class UserDto(
     val id: Int,
-    val username: String,
+    val name: String,
     val password: String,
     val email: String,
     val role: USER_ROLE,
@@ -14,7 +14,7 @@ data class UserDto(
         fun toDbo(dto: UserDto): UserDbo {
             return UserDbo(
                 id = dto.id,
-                username = dto.username,
+                name = dto.name,
                 password = dto.password,
                 email = dto.email,
                 role = dto.role
