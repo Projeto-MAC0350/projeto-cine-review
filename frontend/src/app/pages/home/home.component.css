@@ -9,22 +9,31 @@ body {
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
-    linear-gradient(
-      to bottom,
-      #530f0a,
-      #8B0000,
-      #FF6347,
-      #FFD700,
-      #ffd700,
-      #ffd700,
-      #90EE90,
-      #006400
-    );
+  background-color: #fff4cd;
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
+
+  background-image:
+    linear-gradient(to right,
+    transparent 0%,
+    transparent 85%,
+    #8c2b0c 85%,
+    #8c2b0c 87%,
+    transparent 87%,
+    transparent 88%,
+    #d84315 88%,
+    #d84315 90%,
+    transparent 90%,
+    transparent 91%,
+    #f9a825 91%,
+    #f9a825 93%,
+    transparent 93%,
+    transparent 94%,
+    #00796b 94%,
+    #00796b 96%,
+    transparent 96%
+    );
 }
 
 .header {
@@ -64,9 +73,13 @@ body {
 }
 
 .frase {
-  text-align: center;
-  padding: 3rem 1rem;
+  text-align: left;
+  padding: 3rem 2rem;
   background-color: transparent;
+
+  margin-left: auto;
+  margin-right: calc(25% + 2rem);
+  max-width: 70%;
 }
 
 .frase-conteudo img {
