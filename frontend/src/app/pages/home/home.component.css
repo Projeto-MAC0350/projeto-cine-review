@@ -96,42 +96,87 @@ body {
 
 .agenda-navigation {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 1rem;
   margin: 1rem 0;
 }
 
+.agenda-navigation button {
+  background-color: #d84315;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+
+.agenda-header {
+  display: flex;
+  margin-right: calc(10% + 2rem);
+  justify-content: space-between;
+  align-items: center;
+  max-width: 79.5%;
+  margin-bottom: 1rem;
+}
+
 .agenda-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /*grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1rem;*/
 }
 
 .day {
-  background: #f9f9f9;
+  background: rgba(242, 204, 121, 0.7);
   padding: 1rem;
   border-radius: 5px;
   text-align: center;
+  display: flex;
+  gap: 0.75rem;
+  margin-right: calc(10% + 2rem);
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 80%;
+  width: fit-content;
+}
+
+.day h3{
+  text-align: left;
+  margin: 0;
+  margin-bottom: 0.75rem;
+}
+
+.day-content{
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
 }
 
 .filme {
+  flex: 1 1 850px;
   display: flex;
+  max-width: 800px;
   flex-direction: column;
   align-items: center;
   text-align: center;
   margin-top: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #ffffff;
 }
 
 .filme img {
-  width: 160px;
-  height: 90px;
+  width: 35vw;
+  max-width: 700px;
+  aspect-ratio: 16/9;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 .reviews-section {
