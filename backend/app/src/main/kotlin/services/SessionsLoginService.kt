@@ -1,62 +1,55 @@
 package services
 
 import db.tables.SessionsLogins
-import db.dbo.SessionLoginDbo
-import db.dbo.toSessionLoginDbo
-import org.jetbrains.exposed.sql.*
+import db.dbo.SessionsLoginDbo
+import db.dbo.toSessionsLoginDbo
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.update
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class SessionsLoginService {
 
-    fun getSessionsLogins(): List<SessionLoginDbo> {
-        return transaction {
-            SessionsLogins.selectAll().map { it.toSessionLoginDbo() }
-        }
+    fun getSessionsLogins(): List<SessionsLoginDbo> = transaction {
+        SessionsLogins.selectAll()
+            .map { it.toSessionsLoginDbo() }
     }
 
-    fun getSessionLoginById(id: Int): SessionLoginDbo? {
-        return transaction {
-            SessionsLogins.select { SessionsLogins.id eq id }
-                .mapNotNull { it.toSessionLoginDbo() }
-                .singleOrNull()
-        }
+    fun getSessionLoginById(id: Int): SessionsLoginDbo? = transaction {
+        SessionsLogins.select { SessionsLogins.id eq id }
+            .mapNotNull { it.toSessionsLoginDbo() }
+            .singleOrNull()
     }
 
-    fun getSessionsLoginsByUserId(userId: Int): List<SessionLoginDbo> {
-        return transaction {
-            SessionsLogins.select { SessionsLogins.userId eq userId }
-                .map { it.toSessionLoginDbo() }
-        }
+    fun getSessionsLoginsByUserId(userId: Int): List<SessionsLoginDbo> = transaction {
+        SessionsLogins.select { SessionsLogins.user_id eq userId }
+            .map { it.toSessionsLoginDbo() }
     }
 
-    fun addSessionLogin(sessionLogin: SessionLoginDbo): SessionLoginDbo {
-        return transaction {
-            val id = SessionsLogins.insertAndGetId {
-                it[user_id] = sessionLogin.userId
-                it[login_time] = sessionLogin.loginTime
-                it[logout_time] = sessionLogin.logoutTime
-            }
-            sessionLogin.copy(id = id.value)
+    fun addSessionLogin(sessionLogin: SessionsLoginDbo): SessionsLoginDbo = transaction {
+        val stmt = SessionsLogins.insert { stmt ->
+            stmt[SessionsLogins.user_id]    = sessionLogin.userId
+            stmt[SessionsLogins.login_time]  = sessionLogin.loginTime
+            stmt[SessionsLogins.logout_time] = sessionLogin.logoutTime
         }
+        val generatedId = stmt[SessionsLogins.id]
+        sessionLogin.copy(id = generatedId)
     }
 
-    fun deleteSessionLogin(id: Int): Boolean {
-        return transaction {
-            SessionsLogins.deleteWhere { SessionsLogins.id eq id } > 0
-        }
+    fun deleteSessionLogin(id: Int): Boolean = transaction {
+        SessionsLogins.deleteWhere { SessionsLogins.id eq id } > 0
     }
 
-    fun deleteSessionsLoginsByUserId(userId: Int): Boolean {
-        return transaction {
-            SessionsLogins.deleteWhere { SessionsLogins.userId eq userId } > 0
-        }
+    fun deleteSessionsLoginsByUserId(userId: Int): Boolean = transaction {
+        SessionsLogins.deleteWhere { SessionsLogins.user_id eq userId } > 0
     }
 
-    fun updateSessionLogin(sessionLogin: SessionLoginDbo): Boolean {
-        return transaction {
-            SessionsLogins.update({ SessionsLogins.id eq sessionLogin.id }) {
-                it[logout_time] = sessionLogin.logoutTime
-            } > 0
-        }
+    fun updateSessionLogin(sessionLogin: SessionsLoginDbo): Boolean = transaction {
+        SessionsLogins.update({ SessionsLogins.id eq sessionLogin.id }) { stmt ->
+            stmt[SessionsLogins.logout_time] = sessionLogin.logoutTime
+        } > 0
     }
 }
