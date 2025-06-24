@@ -17,6 +17,6 @@ fun ResultRow.toSessionDbo(): SessionDbo {
         id = this[Sessions.id],
         movieId = this[Sessions.movie_id],
         theater = this[Sessions.theater],
-        date = this[Sessions.date].toLocalDateTime()
+        date = this[Sessions.date]
     )
 }

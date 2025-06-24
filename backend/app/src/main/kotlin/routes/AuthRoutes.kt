@@ -1,6 +1,6 @@
 package routes
 
-import db.Users
+import db.tables.Users
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

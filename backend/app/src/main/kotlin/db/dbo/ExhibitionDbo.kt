@@ -17,8 +17,8 @@ fun ResultRow.toExhibitionDbo(): ExhibitionDbo {
     return ExhibitionDbo(
         id = this[Exhibitions.id],
         title = this[Exhibitions.title],
-        startDate = this[Exhibitions.start_date].toLocalDate(),
-        endDate = this[Exhibitions.end_date]?.toLocalDate(),
+        startDate = this[Exhibitions.start_date],
+        endDate = this[Exhibitions.end_date],
         status = this[Exhibitions.status],
     )
 }

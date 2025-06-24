@@ -22,6 +22,6 @@ fun ResultRow.toReviewDbo(): ReviewDbo {
         rating = this[Reviews.rating],
         comment = this[Reviews.comment],
         title = this[Reviews.title],
-        date = this[Reviews.date].toLocalDate(),
+        date = this[Reviews.date],
     )
 }

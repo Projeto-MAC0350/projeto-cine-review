@@ -15,7 +15,7 @@ fun ResultRow.toSessionsLoginDbo(): SessionsLoginDbo {
     return SessionsLoginDbo(
         id = this[SessionsLogins.id],
         userId = this[SessionsLogins.user_id],
-        loginTime = this[SessionsLogins.login_time].toLocalDateTime(),
-        logoutTime = this[SessionsLogins.logout_time]?.toLocalDateTime()
+        loginTime = this[SessionsLogins.login_time],
+        logoutTime = this[SessionsLogins.logout_time]
     )
 }

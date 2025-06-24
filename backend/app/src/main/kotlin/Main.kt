@@ -12,6 +12,8 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
+import db.DatabaseFactory
+
 
 object Users : Table("users") {
     val id = integer("id").autoIncrement()
@@ -24,16 +26,7 @@ object Users : Table("users") {
 data class UserRequest(val email: String, val password: String)
 
 fun main() {
-    Database.connect(
-        url = "jdbc:postgresql://localhost:5432/seubanco",
-        driver = "org.postgresql.Driver",
-        user = "usuario",
-        password = "senha"
-    )
-
-    transaction {
-        create(Users)
-    }
+    DatabaseFactory.init()
 
     embeddedServer(Netty, port = 8080) {
         install(ContentNegotiation) {
