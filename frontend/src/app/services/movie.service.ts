@@ -7,7 +7,7 @@ import { Movie } from '../models/movie.model';
 @Injectable({ providedIn: 'root' })
 export class MovieService {
 
-  private readonly baseUrl = '${environment.apiUrl}/movies';
+  private readonly baseUrl = `${environment.apiUrl}/movies`;
 
   constructor(private http: HttpClient) {}
 
