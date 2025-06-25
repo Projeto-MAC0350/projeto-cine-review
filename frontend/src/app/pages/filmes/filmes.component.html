@@ -1,12 +1,19 @@
 <main class="main">
-  <h1>Filmes</h1>
-  <div *ngIf="error" class="error">{{ error }}</div>
-  <div class="movies-grid">
-    <div *ngFor="let m of movies" class="movie-card">
-      <h2>{{ m.title }}</h2>
-      <img *ngIf="m.imageLink" [src]="m.imageLink" alt="{{ m.title }}">
-      <p *ngIf="m.duration">Duração: {{ m.duration }}</p>
-      <button [routerLink]="['/filmes', m.id]">Detalhes</button>
+  <div class="filmes-container">
+    <h1>Filmes em Cartaz</h1>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="movies-grid">
+      <div *ngFor="let m of movies" class="movie-card">
+        <a [routerLink]="['/filmes', m.id]" class="card-link">
+          <img *ngIf="m.imageLink" [src]="m.imageLink" alt="{{ m.title }}">
+          <div class="card-content">
+            <h2>{{ m.title }}</h2>
+            <p *ngIf="m.duration">Duração: {{ m.duration }}</p>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
