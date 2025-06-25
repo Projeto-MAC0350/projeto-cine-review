@@ -19,8 +19,6 @@ import db.enums.USER_ROLE
 import io.ktor.server.plugins.cors.*
 import io.ktor.http.*
 import services.*
-import io.ktor.server.plugins.callloging.*
-import org.slf4j.event.Level
 
 //para consultar filmes:
 import dto.*
@@ -44,9 +42,6 @@ fun main() {
     DatabaseFactory.init()
 
     embeddedServer(Netty, port = 8080) {
-        install(CallLogging){
-            level = Level.INFO
-        }
 
         install(CORS) {
             allowHost("localhost:4200", schemes = listOf("http"))
@@ -78,7 +73,15 @@ fun main() {
 
             get("/movies") {
                 val list = movieService.getMovies().map { MovieDto.fromDbo(it) }
-                call.respond(list)
+                try {
+                    call.respond(list)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    call.respondText(
+                        "Erro no /movies: ${e.message}",
+                        status = HttpStatusCode.InternalServerError
+                    )
+                }
             }
 
             get("/movies/{id}") {

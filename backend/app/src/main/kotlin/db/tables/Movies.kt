@@ -21,9 +21,9 @@ object Movies : Table("movies") {
     val durationType  = text("duration_type").nullable()
     val director      = text("director").nullable()
     val directorType  = text("director_type").nullable()
-    val exhibition_id  = integer("exhibition_id").references(Exhibitions.id)
-    val noReviews     = integer("no_reviews").default(0)
-    val totalRating   = integer("total_rating").default(0)
+    val exhibition_id  = integer("exhibition_id").references(Exhibitions.id).nullable()
+    val noReviews     = integer("no_reviews").default(0).nullable()
+    val totalRating   = integer("total_rating").default(0).nullable()
 
     override val primaryKey = PrimaryKey(id)
 }

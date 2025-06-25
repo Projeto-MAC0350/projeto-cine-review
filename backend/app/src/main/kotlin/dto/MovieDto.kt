@@ -21,9 +21,9 @@ data class MovieDto(
     val durationType: String?,
     val director: String?,
     val directorType: String?,
-    val exhibition_id: Int,
-    val noReviews: Int,
-    val totalRating: Int
+    val exhibition_id: Int?,
+    val noReviews: Int?,
+    val totalRating: Int?
 ) {
     companion object {
         fun fromDbo(dbo: MovieDbo): MovieDto = MovieDto(

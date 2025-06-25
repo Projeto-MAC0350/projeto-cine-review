@@ -2,6 +2,7 @@ package db.dbo
 
 import db.tables.Movies
 import org.jetbrains.exposed.sql.ResultRow
+import org.postgresql.util.PGobject
 
 data class MovieDbo(
     val id: Int,
@@ -19,9 +20,9 @@ data class MovieDbo(
     val durationType: String?,
     val director: String?,
     val directorType: String?,
-    val exhibition_id: Int,
-    val noReviews: Int,
-    val totalRating: Int
+    val exhibition_id: Int?,
+    val noReviews: Int?,
+    val totalRating: Int?
 )
 
 fun ResultRow.toMovieDbo(): MovieDbo = MovieDbo(
@@ -30,7 +31,7 @@ fun ResultRow.toMovieDbo(): MovieDbo = MovieDbo(
     showLink      = this[Movies.showLink],
     movieLink     = this[Movies.movieLink],
     imageLink     = this[Movies.imageLink],
-    sessions      = this[Movies.sessions],
+    sessions      = (this[Movies.sessions] as? PGobject)?.value,
     movieInfo     = this[Movies.movieInfo],
     country       = this[Movies.country],
     countryType   = this[Movies.countryType],
@@ -40,7 +41,7 @@ fun ResultRow.toMovieDbo(): MovieDbo = MovieDbo(
     durationType  = this[Movies.durationType],
     director      = this[Movies.director],
     directorType  = this[Movies.directorType],
-    exhibition_id  = this[Movies.exhibition_id],
-    noReviews     = this[Movies.noReviews],
-    totalRating   = this[Movies.totalRating]
+    exhibition_id  = this[Movies.exhibition_id] ?: 0,
+    noReviews     = this[Movies.noReviews] ?: 0,
+    totalRating   = this[Movies.totalRating] ?: 0
 )
