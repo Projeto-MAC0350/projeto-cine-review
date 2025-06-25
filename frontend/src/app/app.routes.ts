@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { FilmesComponent } from './pages/filmes/filmes.component';
 import {DetalheFilmeComponent} from './pages/detalhe-filme/detalhe-filme.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -11,4 +12,5 @@ export const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'filmes', component: FilmesComponent},
   { path: 'filmes/:id', component: DetalheFilmeComponent},
+  { path: 'perfil', component: PerfilComponent },
 ];
