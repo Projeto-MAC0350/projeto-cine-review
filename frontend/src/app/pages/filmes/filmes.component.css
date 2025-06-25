@@ -73,10 +73,9 @@ body {
 }
 
 :host {
-  font-size: 1.125rem; /* ~18px */
+  font-size: 1.125rem;
 }
 
-/* O container principal que limita a largura do conteúdo na página */
 .filmes-container {
   width: 80%; /* Ocupa 80% da largura da tela */
   max-width: 1400px; /* Mas não passa de 1400px em telas muito grandes */
@@ -96,8 +95,6 @@ body {
 /* O grid que organiza os cards dos filmes */
 .movies-grid {
   display: grid;
-  /* Cria colunas responsivas: elas terão no mínimo 280px,
-     e o grid vai preencher o espaço com quantas colunas couberem. */
   grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 2rem; /* Espaçamento entre os cards */
 }
@@ -107,29 +104,26 @@ body {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  overflow: hidden; /* Garante que a imagem com cantos arredondados não vaze */
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .movie-card:hover {
-  transform: translateY(-5px); /* Efeito de "levantar" o card */
+  transform: translateY(-5px); /* Efeito de levantar o card */
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-/* CÓDIGO NOVO E CORRETO */
 .movie-card img {
   width: 100%;
-  /* REMOVA a linha 'height: 400px;' e ADICIONE a linha abaixo */
-  aspect-ratio: 16 / 9; /* <-- A MÁGICA ACONTECE AQUI */
+  aspect-ratio: 16 / 9;
 
-  object-fit: cover; /* Continua importante para a imagem preencher o espaço sem distorcer */
+  object-fit: cover;
   display: block;
 }
 
-/* O link que envolve o card */
 .card-link {
   text-decoration: none;
-  color: inherit; /* Herda a cor do texto do pai */
+  color: inherit;
   display: block;
   height: 100%;
 }
