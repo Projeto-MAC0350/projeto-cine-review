@@ -34,6 +34,9 @@ object Users : Table("users") {
 @Serializable
 data class UserRequest(val name: String, val email: String, val password: String)
 
+@Serializable
+data class LoginResponse(val id: Int, val name: String, val email: String, val role: USER_ROLE)
+
 fun main() {
     DatabaseFactory.init()
 
@@ -99,7 +102,14 @@ fun main() {
                 if (user == null || user[Users.password] != req.password) {
                     call.respondText("Login inválido")
                 } else {
-                    call.respondText("Login bem-sucedido!")
+                    call.respond(
+                        LoginResponse(
+                            id = user[Users.id],
+                            name = user[Users.name],
+                            email = user[Users.email],
+                            role = user[Users.role]
+                        )
+                    )
                 }
             }
         }

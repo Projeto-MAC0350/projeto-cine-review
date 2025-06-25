@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="logo">
+    <a routerLink="/"><img src="assets/logo2.jpg" alt="LOGO"></a>
+  </div>
+  <nav class="nav-links">
+
+    <!-- usuário logado? -->
+    <ng-container *ngIf="isLoggedIn$ | async; else guestLinks">
+      <span>Logado como {{ (currentUser$ | async)?.name }}</span>
+      <button (click)="logout()">Sair</button>
+    </ng-container>
+
+    <!-- não logado E estamos em rota permitida → mostra o link -->
+    <ng-template #guestLinks>
+      <a *ngIf="showAuthLinks" routerLink="/login">
+        Entre ou Cadastre-se
+      </a>
+    </ng-template>
+
+    <!-- links que devem aparecer sempre -->
+    <a routerLink="/filmes">Filmes</a>
+    <a href="https://cinusp.webhostusp.sti.usp.br/" target="_blank">
+      Sobre o CINUSP
+    </a>
+  </nav>
+</header>
