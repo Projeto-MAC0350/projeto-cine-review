@@ -5,6 +5,7 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { FilmesComponent } from './pages/filmes/filmes.component';
 import {DetalheFilmeComponent} from './pages/detalhe-filme/detalhe-filme.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },

@@ -11,4 +11,8 @@ export class ProfileService {
   getProfile(): Observable<User> {
     return this.http.get<User>(`${this.api}/perfil`);
   }
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.api}/users/${id}`);
+  }
+
 }
