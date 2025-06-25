@@ -61,6 +61,10 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
+    // para autenticacao:
+    implementation("io.ktor:ktor-server-auth:2.3.7")
+    implementation("io.ktor:ktor-server-auth-jwt:2.3.7")
+    implementation("com.auth0:java-jwt:4.4.0")
 
     // Testes (opcional)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

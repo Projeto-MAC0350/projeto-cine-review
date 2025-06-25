@@ -4,6 +4,9 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.plugins.contentnegotiation.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -14,6 +17,9 @@ import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
 import db.DatabaseFactory
 import db.enums.USER_ROLE
+
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 
 // para integrar com o angular:
 import io.ktor.server.plugins.cors.*
@@ -36,15 +42,20 @@ object Users : Table("users") {
 data class UserRequest(val name: String, val email: String, val password: String)
 
 @Serializable
-data class LoginResponse(val id: Int, val name: String, val email: String, val role: USER_ROLE)
+data class LoginResponse(val id: Int, val name: String, val email: String, val role: USER_ROLE, val token: String)
 
 fun main() {
     DatabaseFactory.init()
 
     embeddedServer(Netty, port = 8080) {
 
+        val jwtSecret = "segredo"
+        val jwtIssuer = "br.usp.rev.api"
+        val jwtAudience = "rev-usp-users"
+        val jwtRealm = "rev-usp-api"
+
         install(CORS) {
-            allowHost("localhost:4200", schemes = listOf("http"))
+            allowHost("localhost:4200", schemes = listOf("http", "https"))
 
             allowHeader(HttpHeaders.ContentType)
             allowHeader(HttpHeaders.Authorization)
@@ -64,11 +75,52 @@ fun main() {
             })
         }
 
+        install (Authentication) {
+            jwt {
+                realm = jwtRealm
+                verifier(
+                    JWT.require(Algorithm.HMAC256(jwtSecret))
+                        .withAudience(jwtAudience)
+                        .withIssuer(jwtIssuer)
+                        .build()
+                )
+                validate { credential ->
+                    if (credential.payload.getClaim("userId").asInt() != null) {
+                        JWTPrincipal(credential.payload)
+                    } else {
+                        null
+                    }
+                }
+                challenge { defaultScheme, realm ->
+                    call.respond(HttpStatusCode.Unauthorized, "token invalido")
+                }
+            }
+        }
+
         val movieService = MovieService()
+        val userService = UserService()
 
         routing {
             get("/") {
                 call.respondText("API Kotlin + Exposed + PostgreSQL funcionando!")
+            }
+
+            authenticate{
+                get("/perfil") {
+                    val principal = call.principal<JWTPrincipal>()
+                    val userId = principal?.payload?.getClaim("userId")?.asInt()
+
+                    if(userId == null) {
+                        call.respond(HttpStatusCode.BadRequest, "Usuario nao encontrado")
+                        return@get
+                    }
+
+                    val userDbo = userService.getUserById(userId)
+
+                    userDbo?.let {
+                        call.respond(it)
+                    } ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
+                }
             }
 
             get("/movies") {
@@ -126,11 +178,19 @@ fun main() {
                 if (user == null || user[Users.password] != req.password) {
                     call.respondText("Login inválido")
                 } else {
+                    val tok = JWT.create()
+                        .withAudience(jwtAudience)
+                        .withIssuer(jwtIssuer)
+                        .withClaim("userId", user[Users.id])
+                        .withClaim("name", user[Users.name])
+                        .sign(Algorithm.HMAC256(jwtSecret))
+
                     val userDto = LoginResponse(
                             id = user[Users.id],
                             name = user[Users.name],
                             email = user[Users.email],
-                            role = user[Users.role]
+                            role = user[Users.role],
+                            token = tok
                     )
                     call.respond(HttpStatusCode.OK, userDto)
                 }
