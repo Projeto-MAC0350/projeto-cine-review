@@ -133,6 +133,31 @@ fun main() {
                 }
             }
 
+            get("/users/{id}/reviews") {
+                val id = call.parameters["id"]?.toIntOrNull()
+                if (id == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Usuario nao encontrado")
+                    return@get
+                }
+                val dtos = reviewService
+                    .getReviewsByUserId(id)
+                    .map { ReviewDto.fromDbo(it) }
+                call.respond(dtos)
+            }
+
+            get("/users/{id}") {
+                val id = call.parameters["id"]?.toIntOrNull()
+                if (id == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Usuario nao encontrado")
+                    return@get
+                }
+                val userDbo = userService.getUserById(id)
+
+                userDbo?.let {
+                    call.respond(it)
+                } ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
+            }
+
             get("/movies") {
                 val list = movieService.getMovies().map { MovieDto.fromDbo(it) }
                 try {
