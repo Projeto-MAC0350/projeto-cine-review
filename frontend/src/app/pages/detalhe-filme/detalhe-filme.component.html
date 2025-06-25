@@ -1,1 +1,43 @@
-<p>detalhe-filme works!</p>
+<main class="main">
+  <div class="detalhe-container">
+
+    <div *ngIf="movie as movieData; else loadingOrError">
+
+      <a routerLink="/filmes" class="back-link">← Voltar para a lista</a>
+      <div class="movie-content-wrapper">
+        <h1>{{ movieData.title }}</h1>
+
+        <div class="detalhe-content">
+          <img [src]="movieData.imageLink" [alt]="movieData.title" class="movie-poster">
+
+          <div class="movie-info">
+            <p><strong>Sinopse:</strong> {{ movieData.movieInfo || 'Não disponível' }}</p>
+            <p><strong>Diretor:</strong> {{ movieData.director || 'Não disponível' }}</p>
+            <p><strong>Ano:</strong> {{ movieData.year || 'Não disponível' }}</p>
+            <p><strong>Duração:</strong> {{ movieData.duration || 'Não disponível' }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <ng-template #loadingOrError>
+
+      <div *ngIf="error" class="error-message">
+        <h2>Ocorreu um erro</h2>
+        <p>{{ error }}</p>
+        <a routerLink="/filmes">Voltar para a lista de filmes</a>
+      </div>
+
+      <div *ngIf="!error" class="loading-message">
+        <p>Carregando detalhes do filme...</p>
+      </div>
+
+    </ng-template>
+
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
+  </footer>
+</main>
