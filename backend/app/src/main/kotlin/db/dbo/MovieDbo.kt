@@ -19,7 +19,7 @@ data class MovieDbo(
     val durationType: String?,
     val director: String?,
     val directorType: String?,
-    val exhibitionId: Int,
+    val exhibition_id: Int,
     val noReviews: Int,
     val totalRating: Int
 )
@@ -27,20 +27,20 @@ data class MovieDbo(
 fun ResultRow.toMovieDbo(): MovieDbo = MovieDbo(
     id            = this[Movies.id],
     title         = this[Movies.title],
-    showLink      = this[Movies.show_link],
-    movieLink     = this[Movies.movie_link],
-    imageLink     = this[Movies.image_link],
-    sessions      = this[Movies.sessions]?.toString(),
-    movieInfo     = this[Movies.movie_info],
+    showLink      = this[Movies.showLink],
+    movieLink     = this[Movies.movieLink],
+    imageLink     = this[Movies.imageLink],
+    sessions      = this[Movies.sessions],
+    movieInfo     = this[Movies.movieInfo],
     country       = this[Movies.country],
-    countryType   = this[Movies.country_type],
+    countryType   = this[Movies.countryType],
     year          = this[Movies.year],
-    yearType      = this[Movies.year_type],
+    yearType      = this[Movies.yearType],
     duration      = this[Movies.duration],
-    durationType  = this[Movies.duration_type],
+    durationType  = this[Movies.durationType],
     director      = this[Movies.director],
-    directorType  = this[Movies.director_type],
-    exhibitionId  = this[Movies.exhibition_id],
-    noReviews     = this[Movies.no_reviews],
-    totalRating   = this[Movies.total_rating]
+    directorType  = this[Movies.directorType],
+    exhibition_id  = this[Movies.exhibition_id],
+    noReviews     = this[Movies.noReviews],
+    totalRating   = this[Movies.totalRating]
 )

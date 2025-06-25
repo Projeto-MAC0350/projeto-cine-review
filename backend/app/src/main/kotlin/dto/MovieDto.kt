@@ -6,31 +6,43 @@ import db.tables.Movies
 data class MovieDto(
     val id: Int,
     val title: String,
+    val showLink: String?,
+    val movieLink: String?,
+    val imageLink: String?,
+    val sessions: String?,
+    val movieInfo: String?,
+    val country: String?,
+    val countryType: String?,
+    val year: String?,
+    val yearType: String?,
+    val duration: String?,
+    val durationType: String?,
     val director: String?,
-    val year: Int,
-    val duration: Int,
-    val location: String?,
-    val synopsis: String?,
-    val exhibitionId: Int,
+    val directorType: String?,
+    val exhibition_id: Int,
     val noReviews: Int,
-    val totalRating: Int,
-    val movieLink: String?
+    val totalRating: Int
 ) {
     companion object {
-        fun fromDbo(dbo: MovieDbo): MovieDto {
-            return MovieDto(
-                id = dbo.id,
-                title = dbo.title,
-                director = dbo.director,
-                year = dbo.year,
-                duration = dbo.duration,
-                location = dbo.location,
-                synopsis = dbo.synopsis,
-                exhibitionId = dbo.exhibitionId,
-                noReviews = dbo.noReviews,
-                totalRating = dbo.totalRating,
-                movieLink = dbo.movieLink
-            )
-        }
+        fun fromDbo(dbo: MovieDbo): MovieDto = MovieDto(
+            id            = dbo.id,
+            title         = dbo.title,
+            showLink      = dbo.showLink,
+            movieLink     = dbo.movieLink,
+            imageLink     = dbo.imageLink,
+            sessions      = dbo.sessions,
+            movieInfo     = dbo.movieInfo,
+            country       = dbo.country,
+            countryType   = dbo.countryType,
+            year          = dbo.year,
+            yearType      = dbo.yearType,
+            duration      = dbo.duration,
+            durationType  = dbo.durationType,
+            director      = dbo.director,
+            directorType  = dbo.directorType,
+            exhibition_id  = dbo.exhibition_id,
+            noReviews     = dbo.noReviews,
+            totalRating   = dbo.totalRating
+        )
     }
 }
