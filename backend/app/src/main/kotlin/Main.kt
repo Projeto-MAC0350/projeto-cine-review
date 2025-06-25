@@ -22,6 +22,9 @@ import services.*
 import io.ktor.server.plugins.callloging.*
 import org.slf4j.event.Level
 
+//para consultar filmes:
+import dto.*
+
 object Users : Table("users") {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 255)
@@ -66,9 +69,27 @@ fun main() {
             })
         }
 
+        val movieService = MovieService()
+
         routing {
             get("/") {
                 call.respondText("API Kotlin + Exposed + PostgreSQL funcionando!")
+            }
+
+            get("/movies") {
+                val list = movieService.getMovies().map { MovieDto.fromDbo(it) }
+                call.respond(list)
+            }
+
+            get("/movies/{id}") {
+                val id = call.parameters["id"]?.toIntOrNull()
+                if (id == null) {
+                    call.respond(HttpStatusCode.BadRequest, "ID invalido")
+                } else {
+                    movieService.getMovieById(id)
+                        ?.let { call.respond(MovieDto.fromDbo(it)) }
+                        ?: call.respond(HttpStatusCode.NotFound)
+                }
             }
 
             post("/register") {

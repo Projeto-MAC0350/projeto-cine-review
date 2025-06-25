@@ -1,11 +1,15 @@
 <main class="main">
-  <p>
-    Aqui, lista de filmes (talvez possa ser um buscador na barra superior ao invés de uma página)
-  </p>
-
-  <footer class="footer">
-    <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
-  </footer>
+  <h1>Filmes</h1>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="movies-grid">
+    <div *ngFor="let m of movies" class="movie-card">
+      <h2>{{ m.title }}</h2>
+      <img *ngIf="m.imageLink" [src]="m.imageLink" alt="{{ m.title }}">
+      <p *ngIf="m.duration">Duração: {{ m.duration }}</p>
+      <button [routerLink]="['/filmes', m.id]">Detalhes</button>
+    </div>
+  </div>
 </main>
+
 
 <router-outlet></router-outlet>

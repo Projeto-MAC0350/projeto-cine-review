@@ -2,7 +2,9 @@ package dto
 
 import db.dbo.MovieDbo
 import db.tables.Movies
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class MovieDto(
     val id: Int,
     val title: String,
