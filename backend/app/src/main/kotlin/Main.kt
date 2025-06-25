@@ -99,6 +99,7 @@ fun main() {
 
         val movieService = MovieService()
         val userService = UserService()
+        val reviewService = ReviewService()
 
         routing {
             get("/") {
@@ -120,6 +121,15 @@ fun main() {
                     userDbo?.let {
                         call.respond(it)
                     } ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
+                }
+
+                get("/perfil/reviews") {
+                    val principal = call.principal<JWTPrincipal>()!!
+                    val userId = principal.payload.getClaim("userId").asInt()
+                    val dtos = reviewService
+                        .getReviewsByUserId(userId)
+                        .map { ReviewDto.fromDbo(it) }
+                    call.respond(dtos)
                 }
             }
 

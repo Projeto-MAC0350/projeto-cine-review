@@ -3,8 +3,10 @@ package dto
 import db.dbo.ReviewDbo
 import db.tables.Reviews
 import db.tables.Users
-import java.time.LocalDate
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
+@Serializable
 data class ReviewDto(
     val id: Int,
     val userId: Int,
@@ -12,7 +14,8 @@ data class ReviewDto(
     val comment: String?,
     val rating: Int,
     val title: String?,
-    val date: LocalDate
+    @SerialName("date")
+    val date: String
 ) {
     companion object {
         fun fromDbo(dbo: ReviewDbo): ReviewDto {
@@ -23,7 +26,7 @@ data class ReviewDto(
                 comment = dbo.comment,
                 rating = dbo.rating,
                 title = dbo.title,
-                date = dbo.date
+                date = dbo.date.toString()
             )
         }
 
@@ -35,7 +38,7 @@ data class ReviewDto(
                 comment = dto.comment,
                 rating = dto.rating,
                 title = dto.title,
-                date = dto.date
+                date = java.time.LocalDate.parse(dto.date)
             )
         }
     }
