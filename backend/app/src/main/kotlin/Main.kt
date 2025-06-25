@@ -13,22 +13,49 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
 import db.DatabaseFactory
+import db.enums.USER_ROLE
 
+// para integrar com o angular:
+import io.ktor.server.plugins.cors.*
+import io.ktor.http.*
+import services.*
+import io.ktor.server.plugins.callloging.*
+import org.slf4j.event.Level
 
 object Users : Table("users") {
     val id = integer("id").autoIncrement()
+    val name = varchar("name", 255)
     val email = varchar("email", 255).uniqueIndex()
     val password = varchar("password", 255)
+    val role = enumerationByName("role",7, USER_ROLE::class)
     override val primaryKey = PrimaryKey(id)
 }
 
 @Serializable
-data class UserRequest(val email: String, val password: String)
+data class UserRequest(val name: String, val email: String, val password: String)
 
 fun main() {
     DatabaseFactory.init()
 
     embeddedServer(Netty, port = 8080) {
+        install(CallLogging){
+            level = Level.INFO
+        }
+
+        install(CORS) {
+            allowHost("localhost:4200", schemes = listOf("http"))
+
+            allowHeader(HttpHeaders.ContentType)
+            allowHeader(HttpHeaders.Authorization)
+
+            allowMethod(HttpMethod.Get)
+            allowMethod(HttpMethod.Post)
+            allowMethod(HttpMethod.Put)
+            allowMethod(HttpMethod.Delete)
+            allowMethod(HttpMethod.Options)
+
+            allowCredentials = true
+        }
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true
@@ -42,11 +69,22 @@ fun main() {
             }
 
             post("/register") {
-                val req = call.receive<UserRequest>()
+                val text = call.receiveText()
+                println(">>> /register raw body: $text")
+
+                val req = try {
+                    Json.decodeFromString<UserRequest>(text)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    call.respond(HttpStatusCode.BadRequest, "JSON inválido: ${e.message}")
+                    return@post
+                }
                 transaction {
                     Users.insert {
+                        it[name] = req.name
                         it[email] = req.email
                         it[password] = req.password // Colocar criptografia
+                        it[role] = USER_ROLE.REGULAR
                     }
                 }
                 call.respondText("Usuário registrado com sucesso!")

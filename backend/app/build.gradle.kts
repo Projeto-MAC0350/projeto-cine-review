@@ -8,7 +8,7 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     alias(libs.plugins.kotlin.jvm)
-
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -52,6 +52,16 @@ dependencies {
 
     // Logging
     implementation("ch.qos.logback:logback-classic:1.4.11")
+
+    //CORS para API com Angular:
+    implementation("io.ktor:ktor-server-cors-jvm:2.3.7")
+    implementation("io.ktor:ktor-server-core-jvm:2.3.7")
+    implementation("io.ktor:ktor-server-netty-jvm:2.3.7")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:2.3.7")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.7")
+    implementation("io.ktor:ktor-server-call-logging-jvm:2.3.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
 
     // Testes (opcional)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

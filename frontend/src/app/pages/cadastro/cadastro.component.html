@@ -14,25 +14,50 @@
   <section class="login-section">
     <div class="login-container">
       <h1>Cadastro</h1>
-      <form>
+
+      <form (ngSubmit)="onSubmit(nameInput.value, emailInput.value, passwordInput.value, confirmPasswordInput.value)">
         <div class="form-group">
           <label for="name">Nome:</label>
-          <input type="text" id="name" placeholder="Digite seu nome" required>
+          <input
+            type="text"
+            id="name"
+            #nameInput
+            placeholder="Digite seu nome"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="email">E-mail:</label>
-          <input type="email" id="email" placeholder="Digite seu e-mail" required>
+          <input
+            type="email"
+            id="email"
+            #emailInput
+            placeholder="Digite seu e-mail"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="password">Senha:</label>
-          <input type="password" id="password" placeholder="Digite sua senha" required>
+          <input
+            type="password"
+            id="password"
+            #passwordInput
+            placeholder="Digite sua senha"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="confirmPassword">Confirmar Senha:</label>
-          <input type="password" id="confirmPassword" placeholder="Confirme sua senha" required>
+          <input
+            type="password"
+            id="confirmPassword"
+            #confirmPasswordInput
+            placeholder="Confirme sua senha"
+            required
+          >
         </div>
 
         <div class="buttons">
@@ -50,5 +75,3 @@
     <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
   </footer>
 </main>
-
-<router-outlet></router-outlet>
