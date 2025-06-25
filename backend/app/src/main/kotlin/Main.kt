@@ -102,14 +102,13 @@ fun main() {
                 if (user == null || user[Users.password] != req.password) {
                     call.respondText("Login inválido")
                 } else {
-                    call.respond(
-                        LoginResponse(
+                    val userDto = LoginResponse(
                             id = user[Users.id],
                             name = user[Users.name],
                             email = user[Users.email],
                             role = user[Users.role]
-                        )
                     )
+                    call.respond(HttpStatusCode.OK, userDto)
                 }
             }
         }

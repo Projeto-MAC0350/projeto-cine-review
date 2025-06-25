@@ -2,15 +2,29 @@
   <section class="login-section">
     <div class="login-container">
       <h1>Entre</h1>
-      <form>
+      <form (ngSubmit)="onSubmit(emailInput.value, passwordInput.value)">
+        <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
         <div class="form-group">
           <label for="email">E-mail:</label>
-          <input type="email" id="email" placeholder="Digite seu e-mail" required>
+          <input
+            type="email"
+            id="email"
+            #emailInput
+            placeholder="Digite seu e-mail"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="password">Senha:</label>
-          <input type="password" id="password" placeholder="Digite sua senha" required>
+          <input
+            type="password"
+            id="password"
+            #passwordInput
+            placeholder="Digite sua senha"
+            required
+          >
         </div>
 
         <div class="buttons">
