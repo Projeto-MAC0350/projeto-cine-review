@@ -4,12 +4,6 @@
   </div>
   <nav class="nav-links">
 
-    <!-- usuário logado? -->
-    <ng-container *ngIf="isLoggedIn$ | async; else guestLinks">
-      <span>Logado como {{ (currentUser$ | async)?.name }}</span>
-      <button (click)="logout()">Sair</button>
-    </ng-container>
-
     <!-- não logado E estamos em rota permitida → mostra o link -->
     <ng-template #guestLinks>
       <a *ngIf="showAuthLinks" routerLink="/login">
@@ -22,5 +16,10 @@
     <a href="https://cinusp.webhostusp.sti.usp.br/" target="_blank">
       Sobre o CINUSP
     </a>
+    <!-- usuário logado? -->
+    <ng-container *ngIf="isLoggedIn$ | async; else guestLinks">
+      <span>Olá, <strong class="user-name-text">{{ (currentUser$ | async)?.name }}!</strong></span>
+      <button class="logoutbutton" (click)="logout()">Sair</button>
+    </ng-container>
   </nav>
 </header>

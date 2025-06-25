@@ -15,6 +15,18 @@
   z-index: 10;
 }
 
+.logoutbutton {
+  background-color: #d84315;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+
 .logo img {
   height: 60px;
   width: auto;
@@ -29,6 +41,12 @@
   width: auto;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .nav-links a {
   margin-left: 1.5rem;
   color: #333333;
@@ -36,5 +54,10 @@
 }
 
 .nav-links a:hover {
+  text-decoration: underline;
+}
+
+.username-text {
+  font-weight: bold;
   text-decoration: underline;
 }
