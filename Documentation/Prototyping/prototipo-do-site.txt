@@ -1,2 +1,5 @@
 O protótipo do site pode ser encontrado em:
 https://excalidraw.com/#json=-4iTTs6NtBP63Go5A1KJD,EmU3O-y0eOaGt1T3A6X3fA
+
+Protótipo no figma:
+https://www.figma.com/design/1mEfHpzBmnlcw04ukWFdgi/Sem-t%C3%ADtulo?node-id=0-1&t=ihdUBVS7saDNWLaE-1
