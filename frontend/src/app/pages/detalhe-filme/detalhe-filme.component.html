@@ -35,6 +35,16 @@
 
     </ng-template>
 
+    <button (click)="openReviewForm()">Fazer Review</button>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+      <input formControlName="title" placeholder="Título da Review" />
+      <textarea formControlName="comment" placeholder="Comentário"></textarea>
+      <!-- Slider -->
+
+      <button type="submit">Enviar</button>
+    </form>
+
   </div>
 
   <footer class="footer">
