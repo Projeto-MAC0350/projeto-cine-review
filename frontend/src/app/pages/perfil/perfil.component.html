@@ -1,1 +1,35 @@
-<p>perfil works!</p>
+<main class="perfil-container">
+  <h1>Perfil de {{ user?.name }}</h1>
+
+  <section *ngIf="errorUser; else showProfile">
+    <p class="error">{{ errorUser }}</p>
+  </section>
+  <ng-template #showProfile>
+    <p><strong>E-mail:</strong> {{ user?.email }}</p>
+    <p><strong>Função:</strong> {{ user?.role }}</p>
+  </ng-template>
+
+  <section>
+    <h2>Minhas Reviews</h2>
+    <p *ngIf="errorReviews" class="error">{{ errorReviews }}</p>
+
+    <ul *ngIf="!errorReviews && reviews.length; else noReviews">
+      <li *ngFor="let review of reviews">
+        <h3>{{ review.title }}</h3>
+        <p>{{ review.comment }}</p>
+        <p>
+          Avaliação: {{ review.rating }} ★ |
+          Data: {{ review.date | date:'dd/MM/yyyy' }}
+        </p>
+        <a [routerLink]="['/filmes', review.movieId]">Ver Filme</a>
+      </li>
+    </ul>
+    <ng-template #noReviews>
+      <p>Você ainda não escreveu nenhuma review.</p>
+    </ng-template>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
+  </footer>
+</main>
