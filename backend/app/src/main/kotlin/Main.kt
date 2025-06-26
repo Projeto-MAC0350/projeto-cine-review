@@ -99,6 +99,7 @@ fun main() {
 
         val movieService = MovieService()
         val userService = UserService()
+        val sessionService = SessionService()
         val reviewService = ReviewService()
 
         routing {
@@ -252,6 +253,19 @@ fun main() {
                             token = tok
                     )
                     call.respond(HttpStatusCode.OK, userDto)
+                }
+            }
+
+            get("/sessions") {
+                val list = sessionService.getSessions().map { SessionDto.fromDbo(it) }
+                try {
+                    call.respond(list)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    call.respondText(
+                        "Erro no /sessions: ${e.message}",
+                        status = HttpStatusCode.InternalServerError
+                    )
                 }
             }
         }

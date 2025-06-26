@@ -163,6 +163,59 @@
     fill: var(--gray-900);
   }
 
+  .movie-card {
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+    padding: 1.2rem 1.2rem 0.8rem 1.2rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 180px;
+    max-width: 220px;
+    transition: box-shadow 0.2s;
+  }
+  .movie-card:hover {
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.16);
+  }
+  .movie-card img {
+    max-width: 160px;
+    max-height: 240px;
+    border-radius: 0.7rem;
+    margin-bottom: 0.7rem;
+    object-fit: cover;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,0.10);
+  }
+  .movie-card .movie-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #222;
+    text-align: center;
+  }
+  .movie-card .movie-hour {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 0.2rem;
+  }
+
+  .agenda-day {
+    margin-bottom: 2rem;
+  }
+  .agenda-movies-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 0.7rem;
+  }
+  @media (max-width: 700px) {
+    .agenda-movies-row {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+  }
+
   @media screen and (max-width: 650px) {
     .content {
       flex-direction: column;
@@ -186,179 +239,23 @@
     </div>
   </section>
 
-  <section class="agenda-section">
-    <div class="agenda-header">
-      <h2>Agenda da Semana</h2>
-      <div class="agenda-navigation">
-        <button>&lt; Semana Anterior</button>
-        <button>Próxima Semana &gt;&gt;</button>
-      </div>
-    </div>
+  <div class="agenda-container">
+    <h1>Agenda da Semana</h1>
+    <div *ngIf="error" class="error">{{ error }}</div>
     <div class="agenda-grid">
-
-      <div class="day">
-        <h3>Segunda</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>India Song</h4>
-            <img src="assets/poster-filme1-segunda.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Viagem à Itália</h4>
-            <img src="assets/poster-filme2-segunda.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 19h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
+      <div *ngFor="let dia of diasDaSemana" class="agenda-day">
+        <h2>{{ dia.nome }} ({{ dia.data }})</h2>
+        <div *ngIf="!dia.movies || dia.movies.length === 0">Nenhum filme.</div>
+        <div class="agenda-movies-row" *ngIf="dia.movies && dia.movies.length > 0">
+          <div *ngFor="let m of dia.movies" class="movie-card">
+            <img [src]="m.image" alt="Poster do filme">
+            <div class="movie-title">{{ m.title }}</div>
+            <div class="movie-hour">Horário: {{ m.hour }}</div>
           </div>
         </div>
       </div>
-
-      <div class="day">
-        <h3>Terça</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>Ninotchka</h4>
-            <img src="assets/poster-filme1-terca.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Apocalipse Now</h4>
-            <img src="assets/poster-filme2-terca.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 19h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="day">
-        <h3>Quarta</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>O Abraço da Serpente</h4>
-            <img src="assets/poster-filme1-quarta.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Notícias de Casa</h4>
-            <img src="assets/poster-filme2-quarta.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 19h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="day">
-        <h3>Quinta</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>Título do Filme 1</h4>
-            <img src="assets/poster-filme1-quinta.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Título do Filme 2</h4>
-            <img src="assets/poster-filme2-quinta.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 19h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="day">
-        <h3>Sexta</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>Título do Filme 1</h4>
-            <img src="assets/poster-filme1-sexta.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Título do Filme 2</h4>
-            <img src="assets/poster-filme2-sexta.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 19h</p>
-              <p>&nbsp;&nbsp;&nbsp;Local: CINUSP Nova Sala&nbsp;&nbsp;&nbsp;</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="day">
-        <h3>Sábado</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>Título do Filme 1</h4>
-            <img src="assets/poster-filme1-sabado.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>Local: CINUSP Maria Antônia</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Título do Filme 2</h4>
-            <img src="assets/poster-filme2-sabado.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 18h</p>
-              <p>Local: CINUSP Maria Antônia</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="day">
-        <h3>Domingo</h3>
-        <div class="day-content">
-          <div class="filme">
-            <h4>Título do Filme 1</h4>
-            <img src="assets/poster-filme1-domingo.jpg" alt="Filme 1">
-            <div class="filme-info">
-              <p>Horário: 16h</p>
-              <p>Local: CINUSP Maria Antônia</p>
-            </div>
-          </div>
-
-          <div class="filme">
-            <h4>Título do Filme 2</h4>
-            <img src="assets/poster-filme2-domingo.jpg" alt="Filme 2">
-            <div class="filme-info">
-              <p>Horário: 18h</p>
-              <p>Local: CINUSP Maria Antônia</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </section>
+  </div>
 
 
   <section class="reviews-section">

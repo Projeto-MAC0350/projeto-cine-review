@@ -1,7 +1,7 @@
 package db.enums
 
 enum class THEATER {
-    CINUSP_Favo04,
-    CINUSP_MariaAntonia,
-    CINUSP_NovaSala;
+    CINUSP_FAVO04,
+    CINUSP_MARIA_ANTONIA,
+    CINUSP_NOVA_SALA
 }
