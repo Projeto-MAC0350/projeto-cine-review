@@ -1,1 +1,20 @@
-<p>usuario works!</p>
+<main class="main">
+  <div *ngIf="errorUser">{{ errorUser }}</div>
+  <div *ngIf="user">
+    <h2>{{ user.name }}</h2>
+    <p>Email: {{ user.email }}</p>
+  </div>
+
+  <h3>Últimas Reviews</h3>
+  <div *ngIf="errorReviews">{{ errorReviews }}</div>
+  <ul>
+    <li *ngFor="let review of reviews">
+      <strong>{{ review.title || 'Sem título' }}</strong> — Nota: {{ review.rating }}<br>
+      {{ review.comment }}
+    </li>
+  </ul>
+  <footer class="footer">
+    <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
+  </footer>
+</main>
+

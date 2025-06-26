@@ -32,7 +32,7 @@ export class UsuarioComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.profileService.getUserById(id).subscribe({
       next: u => this.user = u,
-      error: () => this.errorUser = 'Usuario no encontrado'
+      error: () => this.errorUser = 'Usuario nao encontrado'
       }
     );
     this.reviewService.getReviewsByUser(id).subscribe({

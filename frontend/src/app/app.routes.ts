@@ -14,4 +14,5 @@ export const routes: Routes = [
   { path: 'filmes', component: FilmesComponent},
   { path: 'filmes/:id', component: DetalheFilmeComponent},
   { path: 'perfil', component: PerfilComponent },
+  { path: 'users/:id', loadComponent: () => import('./pages/usuario/usuario.component').then(m => m.UsuarioComponent) }
 ];
