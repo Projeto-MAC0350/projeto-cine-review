@@ -18,7 +18,12 @@
     </a>
     <!-- usuário logado? -->
     <ng-container *ngIf="isLoggedIn$ | async; else guestLinks">
-      <span>Olá, <strong class="user-name-text">{{ (currentUser$ | async)?.name }}!</strong></span>
+      <span>
+        Olá,
+        <a routerLink="/perfil" class="user-name-text">
+          <strong>{{ (currentUser$ | async)?.name }}</strong>!
+        </a>
+      </span>
       <button class="logoutbutton" (click)="logout()">Sair</button>
     </ng-container>
   </nav>

@@ -1,0 +1,82 @@
+:host {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+}
+
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  background-color: #fff4cd;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  background-image:
+    linear-gradient(to right,
+    transparent 0%,
+    transparent 85%,
+    #8c2b0c 85%,
+    #8c2b0c 87%,
+    transparent 87%,
+    transparent 88%,
+    #d84315 88%,
+    #d84315 90%,
+    transparent 90%,
+    transparent 91%,
+    #f9a825 91%,
+    #f9a825 93%,
+    transparent 93%,
+    transparent 94%,
+    #00796b 94%,
+    #00796b 96%,
+    transparent 96%
+    );
+}
+
+.error {
+  color: red;
+}
+
+.perfil-container h1 {
+  margin-bottom: 1rem;
+}
+
+.perfil-container section {
+  margin-top: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.75rem;
+}
+
+li h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+li a {
+  color: #0077cc;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer {
+  background-color: #c7c7c7;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
