@@ -3,25 +3,27 @@ package db.dbo
 import db.tables.Reviews
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDate
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ReviewDbo(
     val id: Int,
-    val movieId: Int,
     val userId: Int,
-    val rating: Int,
+    val movieId: Int,
     val comment: String?,
+    val rating: Int,
     val title: String?,
-    val date: LocalDate
+    val date: String
 )
 
 fun ResultRow.toReviewDbo(): ReviewDbo {
     return ReviewDbo(
         id = this[Reviews.id],
-        movieId = this[Reviews.movie_id],
         userId = this[Reviews.user_id],
-        rating = this[Reviews.rating],
+        movieId = this[Reviews.movie_id],
         comment = this[Reviews.comment],
+        rating = this[Reviews.rating],
         title = this[Reviews.title],
-        date = this[Reviews.date],
+        date = this[Reviews.date].toString(),
     )
 }

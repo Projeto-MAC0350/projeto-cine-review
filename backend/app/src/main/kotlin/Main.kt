@@ -126,6 +126,19 @@ fun main() {
 //                        call.respond(it)
 //                    } ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
                 }
+                post("/movies/{id}/reviews"){
+                    val principal = call.principal<JWTPrincipal>()
+                    val userId = principal
+                        ?.payload
+                        ?.getClaim("userId")
+                        ?.asInt()
+                        ?: return@post call.respond(HttpStatusCode.Unauthorized, "Usuario precisa estar logado")
+                    val movieId = call.parameters["id"]?.toIntOrNull()
+                        ?: return@post call.respond(HttpStatusCode.BadRequest, "ID de filme invalida")
+                    val dto = call.receive<ReviewCreateDto>()
+                    val reviewDbo = reviewService.addReview(dto, userId, movieId)
+                    call.respond(HttpStatusCode.Created, reviewDbo)
+                }
 
                 get("/perfil/reviews") {
                     val principal = call.principal<JWTPrincipal>()!!
@@ -184,6 +197,14 @@ fun main() {
                         ?.let { call.respond(MovieDto.fromDbo(it)) }
                         ?: call.respond(HttpStatusCode.NotFound)
                 }
+            }
+
+            get("/movies/{id}/reviews") {
+                val movieId = call.parameters["id"]?.toIntOrNull()
+                    ?: return@get call.respond(HttpStatusCode.BadRequest, "Id de filme invalida")
+
+                val reviews = reviewService.getReviewsByMovieId(movieId)
+                call.respond(reviews)
             }
 
             post("/register") {

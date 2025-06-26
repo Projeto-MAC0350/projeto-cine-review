@@ -1,12 +1,14 @@
 package services
 
 import db.tables.Reviews
-import db.dbo.ReviewDbo
 import db.dbo.toReviewDbo
+import dto.ReviewDto
+import dto.ReviewCreateDto
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
-import java.time.LocalDateTime
+import java.time.LocalDate
+import db.dbo.ReviewDbo
 
 class ReviewService {
 
@@ -26,24 +28,31 @@ class ReviewService {
             .map { it.toReviewDbo() }
     }
 
-    fun getReviewsByMovieId(movieId: Int): List<ReviewDbo> = transaction {
+    fun getReviewsByMovieId(movieId: Int): List<ReviewDto> = transaction {
         Reviews.select { Reviews.movie_id eq movieId }
             .map { it.toReviewDbo() }
+            .map { ReviewDto.fromDbo(it) }
     }
 
-    fun addReview(review: ReviewDbo): ReviewDbo = transaction {
+    fun addReview(
+        dto: ReviewCreateDto,
+        userId: Int,
+        movieId: Int
+    ): ReviewDto = transaction {
+        val today = LocalDate.now()
+        val ratingInt = (dto.rating * 2).toInt()
 
-        val stmt = Reviews.insert { stmt ->
-            stmt[Reviews.user_id] = review.userId
-            stmt[Reviews.movie_id] = review.movieId
-            stmt[Reviews.rating] = review.rating
-            stmt[Reviews.comment] = review.comment
-            stmt[Reviews.title] = review.title
-            stmt[Reviews.date] = review.date
+        val stmt = Reviews.insert {
+            it[Reviews.user_id]  = userId
+            it[Reviews.movie_id] = movieId
+            it[Reviews.comment]  = dto.comment
+            it[Reviews.rating]   = ratingInt
+            it[Reviews.title]    = dto.title
+            it[Reviews.date]     = today
         }
 
-        val generatedId = stmt[Reviews.id]
-        review.copy(id = generatedId)
+        val dbo = stmt.resultedValues!!.first().toReviewDbo()
+        ReviewDto.fromDbo(dbo)
     }
 
     fun deleteReview(id: Int): Boolean = transaction {
