@@ -107,6 +107,13 @@ fun main() {
                 call.respondText("API Kotlin + Exposed + PostgreSQL funcionando!")
             }
 
+            route("/users") {
+                get {
+                    val users = userService.getUsers()
+                    call.respond(users)
+                }
+            }
+
             authenticate{
                 get("/perfil") {
                     val principal = call.principal<JWTPrincipal>()
