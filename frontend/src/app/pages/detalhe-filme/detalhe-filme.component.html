@@ -18,6 +18,11 @@
           </div>
         </div>
       </div>
+      <div class="review-button-wrapper">
+        <button *ngIf="!showForm" (click)="openReviewForm()" class="open-review-btn">
+          Fazer Review
+        </button>
+      </div>
 
     </div>
 
@@ -35,15 +40,64 @@
 
     </ng-template>
 
-    <button (click)="openReviewForm()">Fazer Review</button>
 
-    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
-      <input formControlName="title" placeholder="Título da Review" />
-      <textarea formControlName="comment" placeholder="Comentário"></textarea>
-      <!-- Slider -->
+    <div *ngIf="showForm" class="modal-overlay">
+      <div class="modal-container">
+        <button class="close-btn" (click)="showForm = false">×</button>
 
-      <button type="submit">Enviar</button>
-    </form>
+        <div class="modal-header">
+          <img [src]="movie?.imageLink" alt="{{ movie?.title }}" class="movie-thumbnail" />
+          <div class="movie-info">
+            <h2>{{ movie?.title }}</h2>
+            <span class="movie-year">{{ movie?.year }}</span>
+          </div>
+        </div>
+
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="modal-form">
+          <input formControlName="title" placeholder="Título da Review" />
+          <textarea formControlName="comment" placeholder="Adicione um review..." rows="4"></textarea>
+
+          <label for="rating">Nota (0 a 5):</label>
+          <input
+            id="rating"
+            type="number"
+            formControlName="rating"
+            min="0"
+            max="10"
+            step="0.5"
+            placeholder="Ex: 4.5" />
+
+          <div class="button-wrapper">
+            <button type="submit" class="submit-btn" [disabled]="reviewForm.invalid">
+              Salvar
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+<!--    <form *ngIf="showForm" [formGroup]="reviewForm" (ngSubmit)="submitReview()">-->
+<!--      <input formControlName="title" placeholder="Título da Review" />-->
+<!--      <textarea formControlName="comment" placeholder="Comentário"></textarea>-->
+
+<!--      <label for="rating">Nota (0 a 5):</label>-->
+<!--      <input-->
+<!--        id="rating"-->
+<!--        type="number"-->
+<!--        formControlName="rating"-->
+<!--        min="0"-->
+<!--        max="10"-->
+<!--        step="0.5"-->
+<!--        placeholder="Ex: 7" />-->
+
+<!--      <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="error">-->
+<!--        A nota deve estar entre 0 e 5.-->
+<!--      </div>-->
+
+<!--      <button type="submit" [disabled]="reviewForm.invalid">Enviar</button>-->
+<!--    </form>-->
+
 
   </div>
 
