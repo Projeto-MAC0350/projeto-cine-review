@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   // experimentando uma função pra conseguir setar as datas da agenda automaticamente,
   // mas não está usada no html
   title = 'rev.usp';
-  diasDaSemana: { nome: string, data: string, movies: { image: string, title: string, day: string, hour: string }[] }[] = [];
+  diasDaSemana: { nome: string, data: string, movies: { image: string, title: string, day: string, hour: string, theater: string }[] }[] = [];
   movies: Movie[] = [];
   sessions: any[] = []; // Adicione um tipo melhor se tiver um model de Session
   error: string | null = null;
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
     const segunda = new Date(hoje.getFullYear(), hoje.getMonth(), diffSegunda);
 
     const nomeDias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
-    const dias: { nome: string, data: string, movies: { image: string, title: string, day: string, hour: string }[] }[] = [];
+    const dias: { nome: string, data: string, movies: { image: string, title: string, day: string, hour: string, theater: string }[] }[] = [];
 
     for (let i = 0; i < 7; i++) {
       const dia = new Date(segunda);
@@ -110,7 +110,8 @@ export class HomeComponent implements OnInit {
             image: movie.imageLink ?? '',
             title: movie.title ?? '',
             day: dataFormatada,
-            hour: dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            hour: dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            theater: this.formatarTheater(session.theater ?? '')
           };
         })
         .filter(item => item !== null);
@@ -132,5 +133,25 @@ export class HomeComponent implements OnInit {
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = String(data.getFullYear());
     return `${dia}/${mes}/${ano}`;
+  }
+
+  formatarTheater(theater: string): string {
+    switch (theater) {
+      case 'CINUSP_MARIA_ANTONIA':
+        return 'Cinusp Maria Antônia';
+      case 'CINUSP_NOVA_SALA':
+        return 'Cinusp Nova Sala';
+      case 'CINUSP':
+        return 'Cinusp';
+      default:
+        // Torna legível: substitui _ por espaço, capitaliza cada palavra
+        return theater
+          ? theater
+              .toLowerCase()
+              .split('_')
+              .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+              .join(' ')
+          : '';
+    }
   }
 }

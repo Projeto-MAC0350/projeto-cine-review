@@ -1,37 +1,28 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
-    --electric-violet: oklch(53.18% 0.28 296.97);
+    --black: oklch(53.18% 0.28 296.97);
     --french-violet: oklch(47.66% 0.246 305.88);
     --vivid-pink: oklch(69.02% 0.277 332.77);
     --hot-red: oklch(61.42% 0.238 15.34);
     --orange-red: oklch(63.32% 0.24 31.68);
 
-    --gray-900: oklch(19.37% 0.006 300.98);
-    --gray-700: oklch(36.98% 0.014 302.71);
-    --gray-400: oklch(70.9% 0.015 304.04);
+    --gray-900: #111;
+    --gray-700: #222;
+    --gray-400: #333;
 
     --red-to-pink-to-purple-vertical-gradient: linear-gradient(
       180deg,
       var(--orange-red) 0%,
       var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
+      var(--black) 100%
     );
 
     --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
       90deg,
       var(--orange-red) 0%,
       var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
+      var(--black) 100%
     );
 
     --pill-accent: var(--bright-blue);
@@ -164,40 +155,97 @@
   }
 
   .movie-card {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
-    padding: 1.2rem 1.2rem 0.8rem 1.2rem;
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: column;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 1rem;
+    padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+    margin-bottom: 0.7rem;
     align-items: center;
-    min-width: 180px;
+    min-width: 160px;
     max-width: 220px;
-    transition: box-shadow 0.2s;
   }
   .movie-card:hover {
     box-shadow: 0 4px 24px 0 rgba(0,0,0,0.16);
   }
   .movie-card img {
-    max-width: 160px;
-    max-height: 240px;
+    max-width: 200px;
+    max-height: 300px;
     border-radius: 0.7rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
     object-fit: cover;
     box-shadow: 0 1px 6px 0 rgba(0,0,0,0.10);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .movie-card .movie-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: #222;
+  .movie-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  .movie-info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    justify-content: center;
+  }
+  .movie-info-row .icon {
+    font-size: 1.1em;
+    margin-right: 0.2em;
+    color: #666;
+  }
+  .subtitulo {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #333;
+    margin-top: 0.3em;
     text-align: center;
   }
-  .movie-card .movie-hour {
-    font-size: 1rem;
-    color: #444;
-    margin-bottom: 0.2rem;
+  .agenda-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .agenda-container h1 {
+    text-align: center;
+    margin-bottom: 2.2rem;
+    font-size: 2.7rem;
+    font-weight: 550; /* Remover bold */
+    color: #158d81; /* Verde das listas ao lado */
+  }
+  .agenda-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  .agenda-day {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+    min-width: 260px;
+    max-width: 320px;
+    flex: 1 1 300px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .agenda-day h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #111;
+    text-align: center;
   }
 
   .agenda-day {
@@ -208,11 +256,13 @@
     flex-wrap: wrap;
     gap: 1.2rem;
     margin-top: 0.7rem;
+    justify-content: center;
   }
   @media (max-width: 700px) {
     .agenda-movies-row {
       flex-direction: column;
       gap: 0.7rem;
+      align-items: center;
     }
   }
 
@@ -229,13 +279,38 @@
       margin-block: 1.5rem;
     }
   }
+  .frase {
+    text-align: center;
+    margin-bottom: 2.9rem;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+  }
+  .frase-conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .frase-conteudo h1, .frase-conteudo .subtitulo {
+    text-align: center;
+  }
+  .frase-conteudo h1 {
+    font-size: 3.1rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+    color: #111;
+    line-height: 1.15;
+    text-align: center;
+  }
 </style>
 
 <main class="main">
 
   <section class="frase">
     <div class="frase-conteudo">
-      <h1>Agora você pode dizer o que viu e como se sentiu ao sair do CINUSP</h1>
+      <h1>Agora você pode dizer o que viu<br><span class="subtitulo">e como se sentiu ao sair do CINUSP</span></h1>
     </div>
   </section>
 
@@ -250,13 +325,15 @@
           <div *ngFor="let m of dia.movies" class="movie-card">
             <img [src]="m.image" alt="Poster do filme">
             <div class="movie-title">{{ m.title }}</div>
-            <div class="movie-hour">Horário: {{ m.hour }}</div>
+            <div class="movie-info-row">
+              <span class="icon">⏰</span> <span>{{ m.hour }}</span>
+              <span class="icon">📍</span> <span>{{ m.theater }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
+  </div> <!-- Close agenda-container div here -->
 
   <section class="reviews-section">
     <h2>Últimas Reviews</h2>
@@ -276,10 +353,3 @@
 
 </main>
 <router-outlet></router-outlet>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
