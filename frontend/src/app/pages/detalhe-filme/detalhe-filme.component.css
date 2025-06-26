@@ -1,11 +1,11 @@
 :host {
   font-size: 1.2rem;
   color: #333;
+  font-family: Arial, sans-serif;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   background-color: #f1f1f1;
 }
 
@@ -18,26 +18,18 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-
   background-image:
-    linear-gradient(to right,
-    transparent 0%,
-    transparent 85%,
-    #8c2b0c 85%,
-    #8c2b0c 87%,
-    transparent 87%,
-    transparent 88%,
-    #d84315 88%,
-    #d84315 90%,
-    transparent 90%,
-    transparent 91%,
-    #f9a825 91%,
-    #f9a825 93%,
-    transparent 93%,
-    transparent 94%,
-    #00796b 94%,
-    #00796b 96%,
-    transparent 96%
+    linear-gradient(
+      to right,
+      transparent 0%, transparent 85%,
+      #8c2b0c 85%, #8c2b0c 87%,
+      transparent 87%, transparent 88%,
+      #d84315 88%, #d84315 90%,
+      transparent 90%, transparent 91%,
+      #f9a825 91%, #f9a825 93%,
+      transparent 93%, transparent 94%,
+      #00796b 94%, #00796b 96%,
+      transparent 96%
     );
 }
 
@@ -53,25 +45,20 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
-
 .back-link:hover {
   text-decoration: underline;
 }
 
 .movie-content-wrapper {
   max-width: 900px;
-
   margin: 0 auto;
-
   display: flex;
   flex-direction: column;
-
   gap: 1.5rem;
 }
 
 .movie-poster {
-  max-width: 900px;
-  height: auto;
+  max-width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -89,56 +76,45 @@ body {
 
 .open-review-btn {
   background-color: #8c2b0c;
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.7rem 1.4rem;
   font-size: 1.1rem;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition: background-color 0.3s, transform 0.1s;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   font-family: 'Roboto', sans-serif;
 }
-
 .open-review-btn:hover {
-  background-color: #8c2b0c;
+  background-color: #27ae60;
 }
-
 .open-review-btn:active {
   transform: scale(0.97);
 }
 
-
-/* Blur de fundo e centralização */
+/* Modal */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 10, 10, 0.6);
+  inset: 0;
+  background: rgba(10,10,10,0.6);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
-
-/* Caixa do modal */
 .modal-container {
   background-color: #2c3e50;
-  font-family: inherit;
-  color: white;
+  color: #fff;
   width: 90%;
   max-width: 600px;
   border-radius: 10px;
-  padding: 1.5rem 2rem 1.5rem 1.5rem;
+  padding: 1.5rem;
   position: relative;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
-
-/* Botão de fechar */
 .close-btn {
   position: absolute;
   top: 0.8rem;
@@ -149,98 +125,137 @@ body {
   color: #ccc;
   cursor: pointer;
 }
-
-/* Cabeçalho com imagem + infos */
 .modal-header {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
 }
-
 .movie-thumbnail {
   width: 90px;
   border-radius: 5px;
 }
-
 .movie-info h2 {
   margin: 0;
   font-size: 1.5rem;
 }
-
 .movie-year {
   font-size: 0.9rem;
   color: #bbb;
 }
-
+.modal-form input,
+.modal-form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+}
 .submit-btn {
   margin-top: 1rem;
   background-color: #8c2b0c;
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.6rem 1.2rem;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
 }
-
 .submit-btn:disabled {
   background-color: #888;
   cursor: not-allowed;
 }
-
-.modal-form {
-  padding-right: 1.5rem;
-}
-
-.modal-form input,
-.modal-form textarea {
-  width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.5rem;
-  border-radius: 8px; /* cantos arredondados */
-  border: 1px solid #ccc;
-  background-color: #ecf0f1;
-  color: #2c3e50;
-
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  line-height: 1.4;
-}
-
 .button-wrapper {
   text-align: right;
 }
 
-
-
-button.open-review-btn {
-  background-color: #8c2b0c; /* verde suave */
-  color: white;
-  border: none;
-  padding: 0.7rem 1.4rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  font-family: 'Roboto', sans-serif; /* ou a fonte do seu projeto */
-}
-
-button.open-review-btn:hover {
-  background-color: #27ae60;
-}
-
-button.open-review-btn:active {
-  transform: scale(0.97);
-}
-
-
 .footer {
   background-color: #c7c7c7;
-  color: white;
+  color: #fff;
   text-align: center;
   padding: 1rem;
 }
 
+/* === Styles para as review-cards === */
+.reviews-section {
+  width: 65%;
+  max-width: 900px;
+  /* antes: margin: 2rem auto; */
+  margin-top: 2rem;   /* agora não há centralização */
+  padding: 0 1rem;
+  margin-left: 13.5%;
+}
+.reviews-list {
+  list-style: none;
+  padding: 0;
+}
+.review-item {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.review-item h3 {
+  margin: 0 0 0.5rem 0;
+}
+.review-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+.review-comment {
+  position: relative;
+  line-height: 1.4;
+  /* para truncar via CSS de 3 linhas */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.review-comment.expanded {
+  display: block;
+}
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #00796b;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+.read-more-btn:hover {
+  text-decoration: underline;
+}
+
+.review-comment {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;    /* limite de 3 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  text-align: justify;
+}
+.review-comment.expanded {
+  -webkit-line-clamp: unset;
+}
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #00796b;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  padding: 0;
+}
+
+
+.modal-form {
+  padding-right: 1.5rem;
+}

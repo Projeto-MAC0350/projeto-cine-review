@@ -23,6 +23,10 @@ export class ReviewService {
     return this.http.get<Review[]>(`${this.apiUrl}/users/${userId}/reviews`);
   }
 
+  getReviewsByMovieId(movieId: number): Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.apiUrl}/movies/${movieId}/reviews`);
+  }
+
   createReview(movieId: number, payload: {
     title: string;
     comment: string;

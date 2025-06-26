@@ -76,30 +76,33 @@
         </form>
       </div>
     </div>
-
-<!--    <form *ngIf="showForm" [formGroup]="reviewForm" (ngSubmit)="submitReview()">-->
-<!--      <input formControlName="title" placeholder="Título da Review" />-->
-<!--      <textarea formControlName="comment" placeholder="Comentário"></textarea>-->
-
-<!--      <label for="rating">Nota (0 a 5):</label>-->
-<!--      <input-->
-<!--        id="rating"-->
-<!--        type="number"-->
-<!--        formControlName="rating"-->
-<!--        min="0"-->
-<!--        max="10"-->
-<!--        step="0.5"-->
-<!--        placeholder="Ex: 7" />-->
-
-<!--      <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="error">-->
-<!--        A nota deve estar entre 0 e 5.-->
-<!--      </div>-->
-
-<!--      <button type="submit" [disabled]="reviewForm.invalid">Enviar</button>-->
-<!--    </form>-->
-
-
   </div>
+
+  <div class="reviews-section" *ngIf="reviews.length > 0">
+    <h2>Reviews</h2>
+    <ul class="reviews-list">
+      <li *ngFor="let review of reviews; let i = index" class="review-item">
+        <h3>{{ review.title }}</h3>
+        <p class="review-meta">
+          Nota: {{ review.rating }}⭐ · Autor(a): {{ userMap[review.userId] || 'Anônimo' }}
+        </p>
+        <p
+          class="review-comment"
+          [class.expanded]="reviewExpanded[i]"
+        >
+          {{ review.comment }}
+        </p>
+        <button
+          class="read-more-btn"
+          *ngIf="review.comment.length > 200"
+          (click)="toggleReadMore(i)"
+        >
+          {{ reviewExpanded[i] ? 'Ler menos' : 'Ler mais' }}
+        </button>
+      </li>
+    </ul>
+  </div>
+
 
   <footer class="footer">
     <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>
