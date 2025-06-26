@@ -109,18 +109,21 @@ fun main() {
             authenticate{
                 get("/perfil") {
                     val principal = call.principal<JWTPrincipal>()
-                    val userId = principal?.payload?.getClaim("userId")?.asInt()
+                    val userId = principal?.payload?.getClaim("userId")?.asInt() ?: return@get call.respond(HttpStatusCode.BadRequest, "Usuario nao encontrado")
 
                     if(userId == null) {
                         call.respond(HttpStatusCode.BadRequest, "Usuario nao encontrado")
                         return@get
                     }
+                    userService.getUserById(userId)
+                        ?.let { call.respond(it) }
+                        ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
 
-                    val userDbo = userService.getUserById(userId)
+                    //val userDbo = userService.getUserById(userId)
 
-                    userDbo?.let {
-                        call.respond(it)
-                    } ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
+//                    userDbo?.let {
+//                        call.respond(it)
+//                    } ?: call.respond(HttpStatusCode.NotFound, "usuario nao encontrado")
                 }
 
                 get("/perfil/reviews") {

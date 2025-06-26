@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Review } from '../models/review.model';
@@ -13,7 +13,9 @@ export class ReviewService {
   constructor(private http: HttpClient) {}
 
   getMyReviews(): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.apiUrl}/perfil/reviews`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Review[]>(`${this.apiUrl}/perfil/reviews`, { headers } );
   }
 
   getReviewsByUser(userId: number): Observable<Review[]> {
