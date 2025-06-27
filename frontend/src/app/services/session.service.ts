@@ -7,6 +7,6 @@ export class SessionService {
   constructor(private http: HttpClient) {}
 
   getSessions(): Observable<any[]> {
-    return this.http.get<any[]>('/api/sessions');
+    return this.http.get<any[]>('http://localhost:8080/sessions');
   }
 }

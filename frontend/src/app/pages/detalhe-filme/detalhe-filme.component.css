@@ -1,4 +1,5 @@
 :host {
+:host {
   font-size: 1.2rem;
   color: #333;
   font-family: Arial, sans-serif;
@@ -188,7 +189,7 @@ body {
   /* antes: margin: 2rem auto; */
   margin-top: 2rem;   /* agora não há centralização */
   padding: 0 1rem;
-  margin-left: 13.5%;
+  margin-left: 7%;
 }
 .reviews-list {
   list-style: none;

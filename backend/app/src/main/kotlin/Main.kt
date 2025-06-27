@@ -264,11 +264,13 @@ fun main() {
             }
 
             get("/sessions") {
-                val list = sessionService.getSessions().map { SessionDto.fromDbo(it) }
                 try {
-                    call.respond(list)
+                    val dtos = sessionService
+                        .getSessions()
+                        .map { SessionDto.fromDbo(it) }   // veja se aqui já explode
+                    call.respond(dtos)
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    e.printStackTrace()               // vai aparecer no console o stack completo
                     call.respondText(
                         "Erro no /sessions: ${e.message}",
                         status = HttpStatusCode.InternalServerError
