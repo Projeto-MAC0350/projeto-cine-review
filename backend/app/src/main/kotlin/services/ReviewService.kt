@@ -65,4 +65,15 @@ class ReviewService {
             stmt[Reviews.title] = review.title
         } > 0
     }
+
+    fun getUltimasReviews(limit: Int = 10): List<ReviewDto> = transaction {
+        Reviews
+            .selectAll()
+            .orderBy(Reviews.id, SortOrder.DESC)
+            .limit(limit)
+            .map { it.toReviewDbo() }
+            .map { ReviewDto.fromDbo(it) }
+    }
+
+
 }

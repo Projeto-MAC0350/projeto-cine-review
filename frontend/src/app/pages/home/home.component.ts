@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MovieService } from '../../services/movie.service';
 import { SessionService } from '../../services/session.service';
 import { Movie } from '../../models/movie.model';
+import { Review } from '../../models/review.model';
+import { ReviewService } from '../../services/review.service';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +22,21 @@ export class HomeComponent implements OnInit {
   movies: Movie[] = [];
   sessions: any[] = []; // Adicione um tipo melhor se tiver um model de Session
   error: string | null = null;
+  ultimasReviews: Review[] = [];
 
   constructor(
     private movieService: MovieService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private reviewService: ReviewService
   ) {
     // não chama gerarSemana aqui
   }
 
   ngOnInit(): void {
+    this.reviewService.getUltimasReviews().subscribe({
+      next: (reviews) => this.ultimasReviews = reviews,
+      error: (err) => console.error('Erro ao carregar ultimas reviews', err)
+      });
     this.movieService.getMovies().subscribe({
       next: (movies) => {
         this.movies = movies;

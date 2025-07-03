@@ -341,14 +341,18 @@
   <section class="reviews-section">
     <h2>Últimas Reviews</h2>
     <div class="reviews-grid">
-      <div class="review-card">
-        <h3>Filme Exemplo</h3>
-        <p>Resumo da crítica...</p>
-        <button>Leia Mais</button>
+      <div *ngFor="let review of ultimasReviews" class="review-card">
+        <h3>{{ review.title }}</h3>
+        <p *ngIf="review.comment as c">
+          {{ c.length > 200 ? (c | slice:0:200) + '...' : c }}
+        </p>
+        <a [routerLink]="['/filmes', review.movieId]">
+          <button>Leia Mais</button>
+        </a>
       </div>
-      <!-- Mais reviews -->
     </div>
   </section>
+
 
   <footer class="footer">
     <p>© 2025 rev.usp - desenvolvido para a disciplina MAC0350</p>

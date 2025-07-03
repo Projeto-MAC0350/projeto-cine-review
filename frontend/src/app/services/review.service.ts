@@ -27,6 +27,11 @@ export class ReviewService {
     return this.http.get<Review[]>(`${this.apiUrl}/movies/${movieId}/reviews`);
   }
 
+  getUltimasReviews(): Observable<Review[]> {
+    return this.http.get<Review[]>(this.apiUrl + '/reviews/ultimas'); 
+  }
+
+
   createReview(movieId: number, payload: {
     title: string;
     comment: string;

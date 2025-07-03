@@ -263,6 +263,12 @@ fun main() {
                 }
             }
 
+            get("/reviews/ultimas"){
+                val ultimas = reviewService
+                    .getUltimasReviews()
+                call.respond(ultimas)
+            }
+
             get("/sessions") {
                 try {
                     val dtos = sessionService
