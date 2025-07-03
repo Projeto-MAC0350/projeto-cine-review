@@ -322,7 +322,10 @@
         <h2>{{ dia.nome }} ({{ dia.data }})</h2>
         <div *ngIf="!dia.movies || dia.movies.length === 0">Nenhum filme.</div>
         <div class="agenda-movies-row" *ngIf="dia.movies && dia.movies.length > 0">
-          <div *ngFor="let m of dia.movies" class="movie-card">
+          <div *ngFor="let m of dia.movies"
+               class="movie-card"
+               [routerLink]="['/filmes', m.id]"
+               style="cursor: pointer;">
             <img [src]="m.image" alt="Poster do filme">
             <div class="movie-title">{{ m.title }}</div>
             <div class="movie-info-row">

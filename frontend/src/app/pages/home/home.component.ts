@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   // experimentando uma função pra conseguir setar as datas da agenda automaticamente,
   // mas não está usada no html
   title = 'rev.usp';
-  diasDaSemana: { nome: string, data: string, movies: { image: string, title: string, day: string, hour: string, theater: string }[] }[] = [];
+  diasDaSemana: { nome: string, data: string, movies: { id: number, image: string, title: string, day: string, hour: string, theater: string }[] }[] = [];
   movies: Movie[] = [];
   sessions: any[] = []; // Adicione um tipo melhor se tiver um model de Session
   error: string | null = null;
@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  
+
 
   // Função para gerar a agenda baseada em sessions e movies
   getAgenda() {
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
     const segunda = new Date(hoje.getFullYear(), hoje.getMonth(), diffSegunda);
 
     const nomeDias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
-    const dias: { nome: string, data: string, movies: { image: string, title: string, day: string, hour: string, theater: string }[] }[] = [];
+    const dias: { nome: string, data: string, movies: { id: number, image: string, title: string, day: string, hour: string, theater: string }[] }[] = [];
 
     for (let i = 0; i < 7; i++) {
       const dia = new Date(segunda);
@@ -107,6 +107,7 @@ export class HomeComponent implements OnInit {
           if (!movie) return null;
           const dateObj = new Date(session.date);
           return {
+            id : movie.id,
             image: movie.imageLink ?? '',
             title: movie.title ?? '',
             day: dataFormatada,
@@ -121,7 +122,14 @@ export class HomeComponent implements OnInit {
       dias.push({
         nome: nomeDias[i],
         data: dataFormatada,
-        movies: moviesDoDia
+        movies: moviesDoDia as {
+            id: number;
+            image: string;
+            title: string;
+            day: string;
+            hour: string;
+            theater: string;
+          }[]
       });
     }
     this.diasDaSemana = dias;
