@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetalheFilmeComponent } from './detalhe-filme.component';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { MovieService } from 'src/app/services/movie.service';
-import { Movie }        from 'src/app/models/movie.model';
+import { MovieService } from '../../services/movie.service';
+import { Movie }        from '../../models/movie.model';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule }     from '@angular/router/testing';
@@ -17,9 +17,10 @@ describe('DetalheFilmeComponent', () => {
     id: 1,
     title: 'Filme de Teste',
     director: 'Diretor X',
-    year: 2020,
-    rating: 4.2,
-    synopsis: 'Sinopse de teste...'
+    year: '2020',
+    exhibitionId: 1,
+    noReviews: 1,
+    totalRating: 1,
   };
 
   beforeEach(async () => {
