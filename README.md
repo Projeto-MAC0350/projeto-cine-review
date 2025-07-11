@@ -73,8 +73,14 @@ python3 populatesessions.py
 
 5. Inicializar o frontend
 - Sem encerrar a execução do backend, vá até frontend/ e execute:
-```
+```bash
 ng serve
+```
+# Testes
+1. Frontend
+- Para rodar os testes automatizados no frontend, navegue até o diretório frontend/ e execute o comando abaixo, que irá abrir uma aba no navegador com o log dos testes.
+```bash
+npm test
 ```
 
 # Observações
